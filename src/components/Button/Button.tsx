@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './Button.module.css';
 
-interface ButtonProps {
+export interface ButtonProps {
   variant?: 'text' | 'contained' | 'outlined';
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   classes?: string;
   children?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (event: any) => void;
 }
 
 const COLORS = {
