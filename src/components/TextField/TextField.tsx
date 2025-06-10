@@ -30,8 +30,7 @@ const TextField: React.FC<TextFieldProps> = ({
   disabled = false,
   placeHolder = 'alex',
   label = 'Name',
-
-  helperText = 'helper text',
+  helperText = 'helper text' || '',
   onChange,
   classes,
   ...props
@@ -55,10 +54,10 @@ const TextField: React.FC<TextFieldProps> = ({
         required
         placeholder={placeHolder}
         onChange={onChange}
-        aria-describedby={helperText}
         {...props}
       />
       <span className={styles.bar}></span>
+      <span className={styles.helperText}>{helperText}</span>
       <label htmlFor={id} className={styles.label}>
         {label}
       </label>

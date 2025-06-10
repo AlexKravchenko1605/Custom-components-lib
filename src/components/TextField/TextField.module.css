@@ -250,4 +250,12 @@
 }
 
 /* todo hover effects for everyone classes */
-/* todo helpertext  */
+.helperText {
+  color: var(--textField-label-color);
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: var(--textField-padding-right);
+  top: 43px;
+}
