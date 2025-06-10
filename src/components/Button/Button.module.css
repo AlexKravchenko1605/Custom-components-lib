@@ -1,0 +1,169 @@
+@import url("../root.css");
+
+.button {
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  color: var(--primary-main-color);
+  background-color: var(--primary-backGround-color);
+  text-decoration: none;
+  outline: none;
+  font-size: 14px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+
+  &:active {
+    background-color: inherit;
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &.small {
+    padding: 4px 5px;
+    margin: 0 8px;
+    font-size: 14px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: var(--primary-hover-backGround-color);
+    }
+  }
+
+  &.medium {
+    padding: 6px 8px;
+    margin: 0 8px;
+    font-size: 14px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: var(--primary-hover-backGround-color);
+    }
+  }
+
+  &.large {
+    padding: 8px 11px;
+    margin: 0 8px;
+    font-size: 14px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: var(--primary-hover-backGround-color);
+    }
+  }
+
+  &.text {
+    background-color: var(--text-backGround-color);
+    color: var(--text-text-color);
+
+    &.colorSuccess:hover {
+      background-color: var(--text-success-color);
+    }
+
+    &.colorDisabled {
+      color: var(--disabled-color);
+      background-color: var(--disabled-backGround-color);
+      border-color: var(--disabled-color);
+      pointer-events: none;
+    }
+  }
+
+  &.contained {
+    background-color: var(--contained-backGround-color);
+    color: var(--contained-text-color);
+
+    &:hover {
+      background-color: var(--contained-hover-backGround-color);
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12),
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    &.colorSuccess {
+      color: var(--contained-text-color);
+      background-color: var(--success-color);
+
+      &:hover {
+        background-color: var(--success-hover-color);
+      }
+    }
+
+    &.colorError {
+      color: var(--contained-text-color);
+      background-color: var(--error-color);
+      &:hover {
+        background-color: var(--error-color);
+      }
+    }
+
+    &.colorDisabled {
+      color: var(--disabled-color);
+      background-color: var(--disabled-backGround-color);
+      border-color: var(--disabled-color);
+      pointer-events: none;
+    }
+  }
+
+  &.outlined {
+    color: var(--outlined-text-color);
+    border: 1px solid;
+    background-color: var(--outlined-backGround-color);
+    border-color: var(--outlined-border-color);
+
+    &:hover {
+      background-color: var(--outlined-hover-backGround-color);
+      border-color: var(--outlined-hover-border-color);
+    }
+
+    &.colorSuccess {
+      color: var(--success-color);
+      border-color: var(--success-color);
+      background-color: var(--primary-backGround-color);
+      &:hover {
+        background-color: var(--primary-hover-backGround-color);
+      }
+    }
+
+    &.colorError {
+      color: var(--error-color);
+      border-color: var(--error-color);
+      &:hover {
+        background-color: var(--error-hover-backGround-color);
+      }
+    }
+
+    &.colorDisabled {
+      color: var(--disabled-color);
+      background-color: var(--disabled-backGround-color);
+      border-color: var(--disabled-color);
+      pointer-events: none;
+    }
+  }
+
+  &.colorSecondary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    background-color: var(--primary-backGround-color);
+    &:hover {
+      background-color: var(--secondary-hover-color);
+      border-color: var(--secondary-hover-color);
+    }
+  }
+  &.colorSuccess {
+    color: var(--success-color);
+    background-color: var(--success-backGround-color);
+    &:hover {
+      background-color: var(--success-hover-color);
+    }
+  }
+  &.colorError {
+    color: var(--error-color);
+  }
+}

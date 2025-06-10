@@ -1,0 +1,41 @@
+:root {
+  --primary-main-color: #1976d2;
+  --primary-backGround-color: #fff;
+  --primary-hover-backGround-color: #f2f6fc;
+  --text-text-color: #1976d2;
+  --text-backGround-color: inherit;
+  --contained-backGround-color: #1976d2;
+  --contained-text-color: #fff;
+  --contained-hover-backGround-color: #056bda;
+  --text-backGround-color: inherit;
+  --outlined-backGround-color: transparent;
+  --outlined-border-color: #65aef8;
+  --outlined-text-color: #1976d2;
+  --outlined-hover-backGround-color: #f2f6fc;
+  --outlined-hover-border-color: #1976d2;
+
+  --secondary-color: #9c27b0;
+  --secondary-hover-color: #e8dbeb;
+
+  --success-color: #2e7d32;
+  --text-success-color: #dbebdb;
+  --success-hover-color: #247a28;
+
+  --error-color: #d32f2f;
+  --error-hover-backGround-color: #f0d1d1;
+
+  --warning-color: #ed6c02;
+
+  --disabled-color: rgba(0, 0, 0, 0.26);
+  --disabled-backGround-color: rgba(0, 0, 0, 0.12);
+
+  --textField-width: 150px;
+  --textField-padding-top: 10px;
+  --textField-padding-bottom: 10px;
+  --textField-padding-left: 14px;
+  --textField-padding-right: 14px;
+  --textField-primary-text-color: #000;
+  --textField-border-color: #aaaaaa;
+  --textField-label-color: #999;
+  --textField-field-color: #eee9e9;
+}

@@ -1,0 +1,253 @@
+@import url("../root.css");
+
+* {
+  box-sizing: border-box;
+}
+
+.inputGroup {
+  position: relative;
+  margin: 20px 0px;
+}
+
+.input {
+  font-size: 18px;
+  padding: var(--textField-padding-top) var(--textField-padding-right);
+  display: block;
+  width: var(--textField-width);
+  border: none;
+  color: var(--textField-primary-text-color);
+  border-bottom: 1px solid var(--textField-border-color);
+
+  &.outlined {
+    border-radius: 5px;
+    border: 1px solid var(--textField-border-color);
+  }
+
+  &.filled {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: var(--textField-field-color);
+  }
+}
+
+.input:focus {
+  outline: none;
+  border: none;
+}
+
+.input.outlined:focus {
+  outline: none;
+  border: 1px solid var(--primary-main-color);
+
+  &.colorSuccess {
+    border-color: var(--success-color);
+
+    & ~ .label {
+      color: var(--success-color);
+    }
+  }
+  &.colorError {
+    border-color: var(--error-color);
+
+    & ~ .label {
+      color: var(--error-color);
+    }
+  }
+  &.colorSecondary {
+    border-color: var(--secondary-color);
+
+    & ~ .label {
+      color: var(--secondary-color);
+    }
+  }
+  &.colorWarning {
+    border-color: var(--warning-color);
+
+    & ~ .label {
+      color: var(--warning-color);
+    }
+  }
+}
+
+.input.standard:focus {
+  outline: none;
+  border-bottom: 1px solid var(--primary-main-color);
+
+  &.colorSuccess {
+    border-color: var(--success-color);
+
+    & ~ .label {
+      color: var(--success-color);
+    }
+
+    & ~ .bar:before,
+    & ~ .bar:after {
+      width: 50%;
+      background: var(--success-color);
+    }
+  }
+  &.colorError {
+    border-color: var(--error-color);
+
+    & ~ .label {
+      color: var(--error-color);
+    }
+    & ~ .bar:before,
+    & ~ .bar:after {
+      width: 50%;
+      background: var(--error-color);
+    }
+  }
+  &.colorSecondary {
+    border-color: var(--secondary-color);
+
+    & ~ .label {
+      color: var(--secondary-color);
+    }
+
+    & ~ .bar:before,
+    & ~ .bar:after {
+      width: 50%;
+      background: var(--secondary-color);
+    }
+  }
+  &.colorWarning {
+    border-color: var(--warning-color);
+
+    & ~ .label {
+      color: var(--warning-color);
+    }
+    & ~ .bar:before,
+    & ~ .bar:after {
+      width: 50%;
+      background: var(--warning-color);
+    }
+  }
+}
+
+.input.filled:focus {
+  outline: none;
+  border-bottom: 1px solid var(--primary-main-color);
+
+  &.colorSuccess {
+    border-color: var(--success-color);
+
+    & ~ .label {
+      color: var(--success-color);
+    }
+  }
+  &.colorError {
+    border-color: var(--error-color);
+
+    & ~ .label {
+      color: var(--error-color);
+    }
+  }
+  &.colorSecondary {
+    border-color: var(--secondary-color);
+
+    & ~ .label {
+      color: var(--secondary-color);
+    }
+  }
+  &.colorWarning {
+    border-color: var(--warning-color);
+
+    & ~ .label {
+      color: var(--warning-color);
+    }
+  }
+}
+
+.input:focus ~ .label {
+  top: -16px;
+  left: 1px;
+  font-size: 14px;
+  color: var(--primary-main-color);
+  transition: 0.2s ease all;
+}
+
+.input.filled:not([value]):not(:focus) ~ .label {
+  top: 10px;
+  font-size: 18px;
+  color: var(--textField-label-color);
+}
+
+.input.filled:valid:not(:focus) ~ .label {
+  top: -16px;
+  left: 1px;
+  font-size: 14px;
+  color: var(--textField-label-color);
+}
+
+.input.filled:not([value]):not(:focus):placeholder-shown ~ .label {
+  top: -16px;
+  left: 1px;
+  font-size: 14px;
+  color: var(--textField-label-color);
+}
+
+.input.outlined:not([value]):not(:focus) ~ .label,
+.input.standard:not([value]):not(:focus) ~ .label {
+  top: 10px;
+  font-size: 18px;
+  color: var(--textField-label-color);
+}
+
+.input.outlined:valid:not(:focus) ~ .label,
+.input.standard:valid:not(:focus) ~ .label {
+  top: -16px;
+  left: 1px;
+  font-size: 14px;
+  color: var(--textField-primary-text-color);
+}
+.input.outlined:not([value]):not(:focus):placeholder-shown ~ .label,
+.input.standard:not([value]):not(:focus):placeholder-shown ~ .label {
+  top: -16px;
+  left: 1px;
+  font-size: 14px;
+  color: var(--textField-primary-text-color);
+}
+
+/* .input.outlined:not([value]):not(:focus):focus:placeholder-shown ~ .label {
+  top: -20px;
+  font-size: 14px;
+  color: var(--primary-main-color);
+} */
+
+.label {
+  color: var(--textField-label-color);
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: var(--textField-padding-right);
+  top: 10px;
+  transition: 0.2s ease all;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: var(--textField-width);
+}
+.bar:before,
+.bar:after {
+  content: "";
+  height: 1px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: var(--primary-main-color);
+  transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+/* todo hover effects for everyone classes */
+/* todo helpertext  */
