@@ -1,12 +1,12 @@
-import React from "react";
-import styles from "./TextField.module.css";
+import React from 'react';
+import styles from './TextField.module.css';
 
 type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
-  placeHolder?: "string";
+  placeHolder?: 'string';
   id: string;
-  variant?: "filled" | "standard" | "outlined";
-  color?: "inherit" | "warning" | "primary" | "secondary" | "success" | "error";
+  variant?: 'filled' | 'standard' | 'outlined';
+  color?: 'inherit' | 'warning' | 'primary' | 'secondary' | 'success' | 'error';
   disabled?: boolean;
   classes?: string;
   helperText?: string;
@@ -24,14 +24,14 @@ const COLORS = {
 };
 
 const TextField: React.FC<TextFieldProps> = ({
-  id = "1",
-  variant = "outlined",
-  color = "primary",
+  id = '1',
+  variant = 'outlined',
+  color = 'primary',
   disabled = false,
-  placeHolder = "alex",
-  label = "Name",
+  placeHolder = 'alex',
+  label = 'Name',
 
-  helperText = "helper text",
+  helperText = 'helper text',
   onChange,
   classes,
   ...props
@@ -44,16 +44,16 @@ const TextField: React.FC<TextFieldProps> = ({
     classes,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
   return (
     <div className={styles.inputGroup}>
       <input
         id={id}
         className={textFieldClasses}
-        type='text'
+        type="text"
         disabled={disabled}
         required
-        // placeholder={placeHolder}
+        placeholder={placeHolder}
         onChange={onChange}
         aria-describedby={helperText}
         {...props}

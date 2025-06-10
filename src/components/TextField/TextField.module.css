@@ -1,4 +1,4 @@
-@import url("../root.css");
+@import url('../root.css');
 
 * {
   box-sizing: border-box;
@@ -233,7 +233,7 @@
 }
 .bar:before,
 .bar:after {
-  content: "";
+  content: '';
   height: 1px;
   width: 0;
   bottom: 1px;

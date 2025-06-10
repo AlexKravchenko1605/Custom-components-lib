@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./Button.module.css";
+import React from 'react';
+import styles from './Button.module.css';
 
 interface ButtonProps {
-  variant?: "text" | "contained" | "outlined";
-  color?: "inherit" | "primary" | "secondary" | "success" | "error";
-  size?: "small" | "medium" | "large";
+  variant?: 'text' | 'contained' | 'outlined';
+  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error';
+  size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   classes?: string;
   children?: React.ReactNode;
@@ -21,9 +21,9 @@ const COLORS = {
 };
 
 const Button: React.FC<ButtonProps> = ({
-  variant = "contained",
-  color = "primary",
-  size = "medium",
+  variant = 'contained',
+  color = 'primary',
+  size = 'medium',
   disabled = false,
   classes,
   children,
@@ -39,15 +39,10 @@ const Button: React.FC<ButtonProps> = ({
     classes,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
-    <button
-      className={buttonClasses}
-      disabled={disabled}
-      onClick={onClick}
-      {...props}
-    >
+    <button className={buttonClasses} disabled={disabled} onClick={onClick} {...props}>
       {children}
     </button>
   );

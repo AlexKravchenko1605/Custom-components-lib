@@ -1,5 +1,5 @@
 const path = require("path");
-
+const ESLintPlugin = require("eslint-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: "./src/index.ts",
@@ -10,6 +10,7 @@ module.exports = {
     library: "MyReactLibrary",
     umdNamedDefine: true,
   },
+  plugins: [new ESLintPlugin({})],
   module: {
     rules: [
       {
