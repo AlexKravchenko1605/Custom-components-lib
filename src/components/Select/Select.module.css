@@ -1,0 +1,130 @@
+.selectWrapper {
+  position: relative;
+  display: inline-block;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.selectWrapper.fullWidth {
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--textField-label-color);
+  font-weight: 400;
+}
+
+.select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  padding: 8px 14px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--textField-primary-text-color);
+  background-color: transparent;
+  border: 1px solid var(--textField-border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.select:hover:not(.disabled) {
+  border-color: var(--textField-primary-text-color);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--primary-main-color);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.select.error {
+  border-color: var(--error-color);
+}
+
+.select.error:focus {
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+.select.disabled {
+  background-color: var(--disabled-backGround-color);
+  cursor: not-allowed;
+  color: var(--disabled-color);
+}
+
+.placeholder {
+  color: var(--textField-label-color);
+}
+
+.arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.arrow.open {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  padding: 8px 0;
+  background-color: var(--primary-backGround-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.option:hover {
+  background-color: var(--primary-hover-backGround-color);
+}
+
+.option.selected {
+  background-color: rgba(25, 118, 210, 0.08);
+  color: var(--primary-main-color);
+}
+
+.option.disabled {
+  color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+.helperText {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--textField-label-color);
+}
+
+.helperText.error {
+  color: var(--error-color);
+}
+
+/* Size variants */
+.small .select {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.large .select {
+  padding: 12px 16px;
+  font-size: 18px;
+}

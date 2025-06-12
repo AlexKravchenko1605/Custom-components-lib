@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './Button.module.css';
 
 export interface ButtonProps {
@@ -8,7 +9,7 @@ export interface ButtonProps {
   disabled?: boolean;
   classes?: string;
   children?: React.ReactNode;
-  onClick?: (event: any) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const COLORS = {
@@ -20,7 +21,7 @@ const COLORS = {
   disabled: styles.colorDisabled,
 };
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   variant = 'contained',
   color = 'primary',
   size = 'medium',
@@ -47,5 +48,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
-
-export default Button;

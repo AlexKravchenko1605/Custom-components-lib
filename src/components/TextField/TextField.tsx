@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './TextField.module.css';
 
 export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -10,7 +11,7 @@ export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   disabled?: boolean;
   classes?: string;
   helperText?: string;
-  onChange?: (event: any) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const COLORS = {
@@ -23,14 +24,14 @@ const COLORS = {
   disabled: styles.colorDisabled,
 };
 
-const TextField: React.FC<TextFieldProps> = ({
+export const TextField: React.FC<TextFieldProps> = ({
   id = '1',
   variant = 'outlined',
   color = 'primary',
   disabled = false,
   placeHolder = 'alex',
   label = 'Name',
-  helperText = 'helper text' || '',
+  helperText = 'helper text',
   onChange,
   classes,
   ...props
@@ -64,5 +65,3 @@ const TextField: React.FC<TextFieldProps> = ({
     </div>
   );
 };
-
-export default TextField;
