@@ -1,3 +1,4 @@
+@import './components/root.css';
 @import './components/Button/Button.module.css';
 @import './components/Checkbox/Checkbox.module.css';
 @import './components/Modal/Modal.module.css';
