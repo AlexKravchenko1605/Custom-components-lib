@@ -2,17 +2,7 @@ import React from 'react';
 
 import styles from './TextField.module.css';
 
-export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label?: string;
-  placeHolder?: string;
-  id: string;
-  variant?: 'filled' | 'standard' | 'outlined';
-  color?: 'inherit' | 'warning' | 'primary' | 'secondary' | 'success' | 'error';
-  disabled?: boolean;
-  classes?: string;
-  helperText?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import type{ TextFieldProps } from '../../types/textfield';
 
 const COLORS = {
   inherit: styles.colorInherit,

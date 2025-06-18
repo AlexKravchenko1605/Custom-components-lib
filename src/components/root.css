@@ -1,7 +1,14 @@
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
 :root {
+  --white-color: #fff;
   --primary-main-color: #1976d2;
   --primary-backGround-color: #fff;
-  --primary-hover-backGround-color: #f2f6fc;
+  --primary-hover-backGround-color: #e1ebfa;
   --text-text-color: #1976d2;
   --text-backGround-color: inherit;
   --contained-backGround-color: #1976d2;
@@ -10,6 +17,7 @@
   --text-backGround-color: inherit;
   --outlined-backGround-color: transparent;
   --outlined-border-color: #65aef8;
+  --outlined-border-primary-hover-color: #65aef8;
   --outlined-text-color: #1976d2;
   --outlined-hover-backGround-color: #f2f6fc;
   --outlined-hover-border-color: #1976d2;
@@ -18,13 +26,24 @@
   --secondary-hover-color: #a725be;
 
   --success-color: #2e7d32;
-  --text-success-color: #dbebdb;
-  --success-hover-color: #247a28;
+  --text-success-color: #ffffff;
+  --success-hover-color: #228f27;
 
   --error-color: #d32f2f;
   --error-hover-backGround-color: #f0d1d1;
 
+  --contained-error-hover-backGround-color: #ee2a2a;
+  --contained-primary-hover-backGround-color: #0a77ee;
+  --contained-secondary-hover-backGround-color: #cb2ee6;
+  --text-success-hover-backGround-color: #e1f5e1;
+  --text-error-hover-backGround-color: #ead8d8;
+  --text-primary-hover-backGround-color: #e1ebfa;
+  --text-secondary-hover-backGround-color: #f2e6f5;
+
+
   --warning-color: #ed6c02;
+
+  --info-color: #24b1fe;
 
   --disabled-color: rgba(0, 0, 0, 0.26);
   --disabled-backGround-color: rgba(0, 0, 0, 0.12);
@@ -38,4 +57,45 @@
   --textField-border-color: #aaaaaa;
   --textField-label-color: #999;
   --textField-field-color: #eee9e9;
+
+  --checkbox-border-color: #ccc;
+  --checkbox-checked-color: #2196f3;
+  --checkbox-disabled-color: #e0e0e0;
+  --checkbox-error-color: #f44336;
+  --checkbox-label-color: #333;
+  --checkbox-description-color: #666;
+  --checkbox-secondary-color: #9c27b0;
+  --checkbox-success-color:#4caf50;  
+  --checkbox-info-color:#03a9f4;
+  --checkbox-secondary-color-hover:#7b1fa2;
+  --checkbox-error-color-hover:#d32f2f;
+  --checkbox-succes-color-hover:#388e3c;
+  --checkbox-info-color-hover:#0288d1;
+
+
+  --overlay-backGround-color: rgba(0, 0, 0, 0.5);
+  --modal-box-shadow-color: rgba(0, 0, 0, 0.15);
+  --modal-border-color: #e0e0e0;
+  --modal-title-color: #333;
+  --modal-close-button-color: #666;
+  --modal-close-button-color-hover: #333;
+
+  --select-box-shadow-color: rgba(0, 0, 0, 0.15);
+  --select-border-color: #ccc;
+  --select-hover-border-color: #65aef8;
+  --select-focus-border-color: #1976d2;
+  --select-focus-box-shadow-color: rgba(25, 118, 210, 0.2);
+  --select-error-border-color: #f44336;
+  --select-error-focus-box-shadow-color: rgba(211, 47, 47, 0.2);
+  --select-disabled-border-color: #e0e0e0;
+  --select-disabled-color: #999;
+
+  --switch-track-background-color: #e0e0e0;
+  --switch-thumb-box-shadow-color: rgba(0, 0, 0, 0.2);
+  --switch-color-primary: #2196f3;
+  --switch-color-secondary: #9c27b0;
+  --switch-color-error: #f44336;
+  --switch-color-success: #4caf50;
+  --switch-color-info: #03a9f4;
+  --switch-color-primary-hover: #1976d2;
 }

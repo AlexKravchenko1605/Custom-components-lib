@@ -1,0 +1,6 @@
+@import './components/Button/Button.module.css';
+@import './components/Checkbox/Checkbox.module.css';
+@import './components/Modal/Modal.module.css';
+@import './components/Select/Select.module.css';
+@import './components/Switch/Switch.module.css';
+@import './components/TextField/TextField.module.css'; 

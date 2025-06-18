@@ -1,3 +1,5 @@
+export type SelectSize = 'small' | 'medium' | 'large';
+
 export interface SelectOption {
   value: string | number;
   label: string;
@@ -14,7 +16,7 @@ export interface SelectProps {
   error?: boolean;
   helperText?: string;
   fullWidth?: boolean;
-  size?: 'small' | 'medium' | 'large';
+  size?: SelectSize;
   className?: string;
   name?: string;
   required?: boolean;

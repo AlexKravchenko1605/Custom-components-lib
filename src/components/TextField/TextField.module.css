@@ -1,9 +1,5 @@
 @import url('../root.css');
 
-* {
-  box-sizing: border-box;
-}
-
 .inputGroup {
   position: relative;
   margin: 20px 0px;
@@ -209,11 +205,6 @@
   color: var(--textField-primary-text-color);
 }
 
-/* .input.outlined:not([value]):not(:focus):focus:placeholder-shown ~ .label {
-  top: -20px;
-  font-size: 14px;
-  color: var(--primary-main-color);
-} */
 
 .label {
   color: var(--textField-label-color);
@@ -249,7 +240,6 @@
   right: 50%;
 }
 
-/* todo hover effects for everyone classes */
 .helperText {
   color: var(--textField-label-color);
   font-size: 16px;

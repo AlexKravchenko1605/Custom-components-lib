@@ -25,7 +25,7 @@ export const Default: Story = {
   args: {
     options,
     value: '1',
-    onChange: (value) => console.log('Selected:', value),
+    onChange: () => {},
     label: 'Select an option',
     placeholder: 'Choose an option',
   },

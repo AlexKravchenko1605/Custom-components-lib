@@ -19,11 +19,15 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "incremental": true,
+    "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.stories.tsx", "**/*.test.tsx"]
+  "include": ["src/**/*","**/*.stories.tsx", "**/*.test.tsx"],
+  "exclude": ["node_modules", "dist" ]
 }

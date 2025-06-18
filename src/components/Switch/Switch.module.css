@@ -1,0 +1,196 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 52px;
+  height: 32px;
+  background-color: var(--switch-track-background-color);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.thumb {
+  position: absolute;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px var(--switch-thumb-box-shadow-color);
+  transition: transform 0.2s ease;
+}
+
+/* Color variants - базовые цвета */
+.colorPrimary {
+  background-color: var(--switch-color-primary) !important;
+}
+
+.colorSecondary {
+  background-color: var(--switch-color-secondary) !important;
+}
+
+.colorError {
+  background-color: var(--switch-color-error) !important;
+}
+
+.colorSuccess {
+  background-color: var(--switch-color-success) !important;
+}
+
+.colorInfo {
+  background-color: var(--switch-color-info) !important;
+}
+
+/* Checked state */
+.checked.colorPrimary {
+  background-color: var(--switch-color-primary) !important;
+}
+
+.checked.colorSecondary {
+  background-color: var(--switch-color-secondary) !important;
+}
+
+.checked.colorError {
+  background-color: var(--switch-color-error) !important;
+}
+
+.checked.colorSuccess {
+    background-color: var(--switch-color-success) !important;
+}
+
+.checked.colorInfo {
+  background-color: var(--switch-color-info) !important;
+}
+
+/* Hover states */
+.wrapper:not(.disabled):hover .colorPrimary {
+  background-color: var(--switch-color-primary-hover) !important;
+}
+
+.wrapper:not(.disabled):hover .colorSecondary {
+  background-color: var(--switch-color-secondary-hover) !important;
+}
+
+.wrapper:not(.disabled):hover .colorError {
+  background-color: var(--switch-color-error-hover) !important;
+}
+
+.wrapper:not(.disabled):hover .colorSuccess {
+  background-color: var(--switch-color-success-hover) !important;
+}
+
+.wrapper:not(.disabled):hover .colorInfo {
+  background-color: var(--switch-color-info-hover) !important;
+}
+
+/* Disabled states */
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.disabled .track {
+  background-color: var(--switch-track-background-color-disabled) !important;
+}
+
+.disabled.checked .track {
+  background-color: var(--switch-track-background-color-disabled-checked) !important;
+}
+
+.disabled .thumb {
+  box-shadow: none;
+}
+
+/* Error state */
+.error:not(.checked) {
+  background-color: var(--switch-color-error) !important;
+}
+
+/* Focus state */
+.input:focus-visible + .track {
+  box-shadow: 0 0 0 2px var(--switch-focus-box-shadow-color);
+}
+
+/* Content styles */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--switch-label-color);
+}
+
+.description {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--switch-description-color);
+}
+
+/* Size variants */
+.small .track {
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.small .thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.small .checked .thumb {
+  transform: translateX(16px);
+}
+
+.small .label {
+  font-size: 12px;
+}
+
+.small .description {
+  font-size: 10px;
+}
+
+.large .track {
+  width: 64px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.large .thumb {
+  width: 32px;
+  height: 32px;
+}
+
+.large .checked .thumb {
+  transform: translateX(24px);
+}
+
+.large .label {
+  font-size: 16px;
+}
+
+.large .description {
+  font-size: 14px;
+}

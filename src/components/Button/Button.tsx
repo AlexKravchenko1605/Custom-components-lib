@@ -2,15 +2,9 @@ import React from 'react';
 
 import styles from './Button.module.css';
 
-export interface ButtonProps {
-  variant?: 'text' | 'contained' | 'outlined';
-  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error';
-  size?: 'small' | 'medium' | 'large';
-  disabled?: boolean;
-  classes?: string;
-  children?: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
+import { ButtonProps } from '../../types/button';
+
+
 
 const COLORS = {
   inherit: styles.colorInherit,
