@@ -14,3 +14,6 @@ export type { CheckboxProps } from './types/checkbox';
 
 export { Switch } from './components/Switch';
 export type { SwitchProps } from './types/switch';
+
+export { Modal } from './components/Modal';
+export type { ModalProps } from './types/modal';
