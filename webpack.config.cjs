@@ -18,7 +18,7 @@ module.exports = {
     umdNamedDefine: true,
     clean: true,
     globalObject: 'this',
-    libraryExport: 'default',
+    
   },
   plugins: [
     new MiniCssExtractPlugin({
