@@ -13,12 +13,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    libraryTarget: 'umd',
-    library: 'MyReactLibrary',
-    umdNamedDefine: true,
-    clean: true,
+    library: {
+      type: 'umd',
+      name: 'ReactCustomComponentsLib',
+    },
     globalObject: 'this',
-    
+    clean: false,
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -34,9 +34,7 @@ module.exports = {
             loader: 'ts-loader',
             options: {
               transpileOnly: true,
-              compilerOptions: {
-                module: 'esnext',
-              },
+              configFile: 'tsconfig.json',
             },
           },
         ],
@@ -45,7 +43,7 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [
-          MiniCssExtractPlugin.loader,
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -99,8 +97,7 @@ module.exports = {
       }),
     ],
     usedExports: true,
-    sideEffects: true,
-    moduleIds: 'deterministic',
+    sideEffects: false,
   },
   devtool: isProduction ? 'source-map' : 'eval-source-map',
 };

@@ -1,11 +1,6 @@
 {
   "name": "react-custom-components-lib",
-  "type": "module",
-  "sideEffects": [
-    "*.css",
-    "*.scss"
-  ],
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "react components library ",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -24,7 +19,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
-    "build": "rimraf dist && webpack --config webpack.config.cjs --mode production && tsc --project tsconfig.build.json",
+    "build": "rimraf dist && tsc --project tsconfig.build.json && webpack --config webpack.config.cjs --mode production",
     "dev": "webpack --config webpack.config.cjs --mode development",
     "start": "webpack serve --config webpack.config.cjs --open",
     "storybook": "storybook dev -p 6006",
@@ -39,6 +34,10 @@
   },
   "author": "alex kravchenko",
   "license": "ISC",
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/parser": "^7.27.5",
@@ -93,6 +92,7 @@
     "pretty-format": "^30.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rimraf": "^5.0.10",
     "storybook": "^7.6.17",
     "style-loader": "^3.3.4",
     "ts-jest": "^29.4.0",
