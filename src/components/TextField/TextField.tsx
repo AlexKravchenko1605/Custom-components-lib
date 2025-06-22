@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './TextField.module.css';
 
-import type{ TextFieldProps } from '../../types/textfield';
+import type{ TextFieldProps } from './TextField.types';
 
 const COLORS = {
   inherit: styles.colorInherit,
@@ -15,13 +15,13 @@ const COLORS = {
 };
 
 export const TextField: React.FC<TextFieldProps> = ({
-  id = '1',
+  id ,
   variant = 'outlined',
   color = 'primary',
   disabled = false,
-  placeHolder = 'alex',
-  label = 'Name',
-  helperText = 'helper text',
+  placeHolder,
+  label ,
+  helperText,
   onChange,
   classes,
   ...props
@@ -38,20 +38,20 @@ export const TextField: React.FC<TextFieldProps> = ({
   return (
     <div className={styles.inputGroup}>
       <input
-        id={id}
+        id={id || ''}
         className={textFieldClasses}
         type="text"
         disabled={disabled}
         required
-        placeholder={placeHolder}
+        placeholder={placeHolder || ''}
         onChange={onChange}
         {...props}
       />
       <span className={styles.bar}></span>
-      <span className={styles.helperText}>{helperText}</span>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
+      {helperText && <span className={styles.helperText}>{helperText}</span>}
+      { label && <label htmlFor={id || ''} className={styles.label}>
+        {label || ''  }
+      </label>}
     </div>
   );
 };

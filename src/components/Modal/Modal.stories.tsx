@@ -12,7 +12,7 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Modal component for displaying content in a dialog box.',
+        component: 'Modal component using native dialog element for better accessibility.',
       },
     },
   },
@@ -100,6 +100,18 @@ const meta = {
         defaultValue: { summary: true },
       },
     },
+    'aria-label': {
+      description: 'Accessibility label for the modal',
+      control: 'text',
+    },
+    'aria-describedby': {
+      description: 'ID of element that describes the modal',
+      control: 'text',
+    },
+    'aria-labelledby': {
+      description: 'ID of element that labels the modal',
+      control: 'text',
+    },
   },
 } satisfies Meta<typeof Modal>;
 
@@ -115,7 +127,7 @@ const DefaultModalStory = (args: React.ComponentProps<typeof Modal>) => {
 export const Default = {
   args: {
     title: 'Modal Title',
-    children: <p>This is the modal content.</p>,
+    children: <p>This is the modal content using native dialog element.</p>,
   },
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
@@ -132,6 +144,37 @@ export const WithFooter: Story = {
         </Button>
         <Button color="primary" onClick={() => {}}>
           Confirm
+        </Button>
+      </div>
+    ),
+  },
+  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
+};
+
+// With accessibility
+export const WithAccessibility: Story = {
+  args: {
+    title: 'Accessible Modal',
+    children: (
+      <div>
+        <p>This modal has enhanced accessibility features:</p>
+        <ul>
+          <li>Uses native dialog element</li>
+          <li>Proper ARIA attributes</li>
+          <li>Keyboard navigation support</li>
+          <li>Screen reader friendly</li>
+        </ul>
+      </div>
+    ),
+    'aria-label': 'Accessibility demonstration modal',
+    'aria-describedby': 'modal-description',
+    footer: (
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+        <Button color="secondary" onClick={() => {}}>
+          Cancel
+        </Button>
+        <Button color="primary" onClick={() => {}}>
+          Accept
         </Button>
       </div>
     ),
@@ -185,7 +228,7 @@ const SizesStoryComponent = () => {
         title={`${size.charAt(0).toUpperCase() + size.slice(1)} Modal`}
         size={size}
       >
-        <p>This is a {size} modal.</p>
+        <p>This is a {size} modal using native dialog element.</p>
       </Modal>
     </>
   );
@@ -230,7 +273,7 @@ const PositionsStoryComponent = () => {
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title={`${position.charAt(0).toUpperCase() + position.slice(1)} Position`}
+        title={`${position.charAt(0).toUpperCase() + position.slice(1)} Position Modal`}
         position={position}
       >
         <p>This modal is positioned at the {position}.</p>
@@ -243,12 +286,22 @@ export const Positions: Story = {
   render: () => <PositionsStoryComponent />,
 };
 
+// Without close button
+export const WithoutCloseButton: Story = {
+  args: {
+    title: 'Modal without Close Button',
+    children: <p>This modal doesn't have a close button. Use Escape key or click outside to close.</p>,
+    showCloseButton: false,
+  },
+  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
+};
+
 // Without overlay
 export const WithoutOverlay: Story = {
   args: {
     title: 'Modal without Overlay',
+    children: <p>This modal doesn't have an overlay background.</p>,
     showOverlay: false,
-    children: <p>This modal has no overlay background.</p>,
   },
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
@@ -259,24 +312,14 @@ export const LongContent: Story = {
     title: 'Modal with Long Content',
     children: (
       <div>
-        {Array.from({ length: 20 }).map((_, index) => (
-          <p key={index}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+        <p>This modal contains a lot of content to demonstrate scrolling behavior.</p>
+        {Array.from({ length: 20 }, (_, i) => (
+          <p key={i}>
+            Paragraph {i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         ))}
       </div>
     ),
-  },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
-};
-
-// Without close button
-export const WithoutCloseButton: Story = {
-  args: {
-    title: 'Modal without Close Button',
-    showCloseButton: false,
-    children: <p>This modal has no close button in the header.</p>,
   },
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };

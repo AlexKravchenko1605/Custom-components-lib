@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import React, { forwardRef, memo, useEffect, useCallback } from 'react';
+import React, { forwardRef, memo, useEffect, useCallback, useRef, useImperativeHandle } from 'react';
 
-import { ModalProps } from '../../types/modal';
+import { ModalProps } from './Modal.types';
 
 import styles from './Modal.module.css';
 
 export const Modal = memo(
-  forwardRef<HTMLDivElement, ModalProps>(
+  forwardRef<HTMLDialogElement, ModalProps>(
     (
       {
         isOpen,
@@ -28,6 +28,10 @@ export const Modal = memo(
       },
       ref,
     ) => {
+      const dialogRef = useRef<HTMLDialogElement>(null);
+      
+      useImperativeHandle(ref, () => dialogRef.current!, []);
+
       const handleEscape = useCallback(
         (event: KeyboardEvent) => {
           if (event.key === 'Escape' && closeOnEscape) {
@@ -46,42 +50,89 @@ export const Modal = memo(
         [closeOnOverlayClick, onClose],
       );
 
+      const handleClose = useCallback(() => {
+        onClose();
+      }, [onClose]);
+
+      
       useEffect(() => {
-        if (isOpen && preventScroll) {
-          document.body.style.overflow = 'hidden';
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        if (isOpen) {
+          
+          if (!dialog.open) {
+            dialog.showModal();
+          }
+          
+          
+          if (preventScroll) {
+            document.body.style.overflow = 'hidden';
+          }
+        } else {// Close the dialog
+          if (dialog.open) {
+            dialog.close();
+          }
+          
+          
+          if (preventScroll) {
+            document.body.style.overflow = '';
+          }
         }
-        return () => {
-          document.body.style.overflow = '';
-        };
       }, [isOpen, preventScroll]);
 
+     
       useEffect(() => {
-        if (isOpen) {
+        if (isOpen && closeOnEscape) {
           document.addEventListener('keydown', handleEscape);
         }
         return () => {
           document.removeEventListener('keydown', handleEscape);
         };
-      }, [isOpen, handleEscape]);
+      }, [isOpen, closeOnEscape, handleEscape]);
 
-      if (!isOpen) return null;
+   
+      useEffect(() => {
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        const handleDialogClose = () => {       
+          if (isOpen) {
+            onClose();
+          }
+        };
+
+        dialog.addEventListener('close', handleDialogClose);
+        return () => {
+          dialog.removeEventListener('close', handleDialogClose);
+        };
+      }, [isOpen, onClose]);
+
+   
+      useEffect(() => {
+        return () => {
+          if (preventScroll) {
+            document.body.style.overflow = '';
+          }
+        };
+      }, [preventScroll]);
+
+      const wrapperClasses = classNames(
+        styles.modal,
+        {
+          [styles[size]]: true,
+          [styles[position]]: true,
+          [styles.fullscreenOnMobile]: fullscreenOnMobile,
+        },
+        className,
+      );
 
       return (
-        <div
-          ref={ref}
-          className={classNames(
-            styles.modal,
-            {
-              [styles.open]: isOpen,
-              [styles[size]]: true,
-              [styles[position]]: true,
-              [styles.fullscreenOnMobile]: fullscreenOnMobile,
-            },
-            className,
-          )}
-          role="dialog"
-          aria-modal="true"
+        <dialog
+          ref={dialogRef}
+          className={wrapperClasses}
           aria-labelledby={title ? 'modal-title' : undefined}
+          aria-describedby={footer ? 'modal-footer' : undefined}
         >
           {showOverlay && (
             <div
@@ -100,15 +151,24 @@ export const Modal = memo(
                 </h2>
               )}
               {showCloseButton && (
-                <button className={styles.closeButton} onClick={onClose} aria-label="Close modal">
+                <button 
+                  className={styles.closeButton} 
+                  onClick={handleClose} 
+                  aria-label="Close modal"
+                  type="button"
+                >
                   <span className={styles.closeIcon}>×</span>
                 </button>
               )}
             </div>
             <div className={styles.body}>{children}</div>
-            {footer && <div className={styles.footer}>{footer}</div>}
+            {footer && (
+              <div id="modal-footer" className={styles.footer}>
+                {footer}
+              </div>
+            )}
           </div>
-        </div>
+        </dialog>
       );
     },
   ),

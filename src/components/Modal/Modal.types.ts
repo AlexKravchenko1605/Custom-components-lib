@@ -18,4 +18,8 @@ export interface ModalProps {
   fullscreenOnMobile?: boolean;
   footer?: React.ReactNode;
   preventScroll?: boolean;
-}
+  // Accessibility props
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  'aria-labelledby'?: string;
+} 

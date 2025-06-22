@@ -1,8 +1,20 @@
+@import '../root.css';
+
+/* CSS Custom Properties для TextField */
 .inputGroup {
+  --textfield-border-radius: 5px;
+  --textfield-transition: 0.2s ease all;
+  --textfield-label-font-size: 18px;
+  --textfield-label-font-size-focused: 14px;
+  --textfield-label-top: 10px;
+  --textfield-label-top-focused: -16px;
+  --textfield-bar-height: 1px;
+  
   position: relative;
   margin: 20px 0px;
 }
 
+/* Base input styles */
 .input {
   font-size: 18px;
   padding: var(--textField-padding-top) var(--textField-padding-right);
@@ -11,19 +23,52 @@
   border: none;
   color: var(--textField-primary-text-color);
   border-bottom: 1px solid var(--textField-border-color);
-
-  &.outlined {
-    border-radius: 5px;
-    border: 1px solid var(--textField-border-color);
-  }
-
-  &.filled {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: var(--textField-field-color);
-  }
+  transition: var(--textfield-transition);
 }
 
+/* Variant styles */
+.input.outlined {
+  border-radius: var(--textfield-border-radius);
+  border: 1px solid var(--textField-border-color);
+}
+
+.input.filled {
+  border-top-left-radius: var(--textfield-border-radius);
+  border-top-right-radius: var(--textfield-border-radius);
+  background-color: var(--textField-field-color);
+}
+
+/* Color variants - base styles */
+.colorPrimary {
+  border-color: var(--primary-main-color) !important;
+}
+
+.colorSecondary {
+  border-color: var(--secondary-color) !important;
+}
+
+.colorSuccess {
+  border-color: var(--success-color) !important;
+}
+
+.colorError {
+  border-color: var(--error-color) !important;
+}
+
+.colorWarning {
+  border-color: var(--warning-color) !important;
+}
+
+.colorInherit {
+  border-color: inherit !important;
+}
+
+.colorDisabled {
+  border-color: var(--disabled-color) !important;
+  opacity: 0.6;
+}
+
+/* Focus states */
 .input:focus {
   outline: none;
   border: none;
@@ -32,212 +77,181 @@
 .input.outlined:focus {
   outline: none;
   border: 1px solid var(--primary-main-color);
-
-  &.colorSuccess {
-    border-color: var(--success-color);
-
-    & ~ .label {
-      color: var(--success-color);
-    }
-  }
-  &.colorError {
-    border-color: var(--error-color);
-
-    & ~ .label {
-      color: var(--error-color);
-    }
-  }
-  &.colorSecondary {
-    border-color: var(--secondary-color);
-
-    & ~ .label {
-      color: var(--secondary-color);
-    }
-  }
-  &.colorWarning {
-    border-color: var(--warning-color);
-
-    & ~ .label {
-      color: var(--warning-color);
-    }
-  }
 }
 
 .input.standard:focus {
   outline: none;
   border-bottom: 1px solid var(--primary-main-color);
-
-  &.colorSuccess {
-    border-color: var(--success-color);
-
-    & ~ .label {
-      color: var(--success-color);
-    }
-
-    & ~ .bar:before,
-    & ~ .bar:after {
-      width: 50%;
-      background: var(--success-color);
-    }
-  }
-  &.colorError {
-    border-color: var(--error-color);
-
-    & ~ .label {
-      color: var(--error-color);
-    }
-    & ~ .bar:before,
-    & ~ .bar:after {
-      width: 50%;
-      background: var(--error-color);
-    }
-  }
-  &.colorSecondary {
-    border-color: var(--secondary-color);
-
-    & ~ .label {
-      color: var(--secondary-color);
-    }
-
-    & ~ .bar:before,
-    & ~ .bar:after {
-      width: 50%;
-      background: var(--secondary-color);
-    }
-  }
-  &.colorWarning {
-    border-color: var(--warning-color);
-
-    & ~ .label {
-      color: var(--warning-color);
-    }
-    & ~ .bar:before,
-    & ~ .bar:after {
-      width: 50%;
-      background: var(--warning-color);
-    }
-  }
 }
 
 .input.filled:focus {
   outline: none;
   border-bottom: 1px solid var(--primary-main-color);
-
-  &.colorSuccess {
-    border-color: var(--success-color);
-
-    & ~ .label {
-      color: var(--success-color);
-    }
-  }
-  &.colorError {
-    border-color: var(--error-color);
-
-    & ~ .label {
-      color: var(--error-color);
-    }
-  }
-  &.colorSecondary {
-    border-color: var(--secondary-color);
-
-    & ~ .label {
-      color: var(--secondary-color);
-    }
-  }
-  &.colorWarning {
-    border-color: var(--warning-color);
-
-    & ~ .label {
-      color: var(--warning-color);
-    }
-  }
 }
 
+/* Color variants for focus states */
+.input.outlined:focus.colorSuccess,
+.input.standard:focus.colorSuccess,
+.input.filled:focus.colorSuccess {
+  border-color: var(--success-color);
+}
+
+.input.outlined:focus.colorError,
+.input.standard:focus.colorError,
+.input.filled:focus.colorError {
+  border-color: var(--error-color);
+}
+
+.input.outlined:focus.colorSecondary,
+.input.standard:focus.colorSecondary,
+.input.filled:focus.colorSecondary {
+  border-color: var(--secondary-color);
+}
+
+.input.outlined:focus.colorWarning,
+.input.standard:focus.colorWarning,
+.input.filled:focus.colorWarning {
+  border-color: var(--warning-color);
+}
+
+/* Label color changes on focus */
 .input:focus ~ .label {
-  top: -16px;
-  left: 1px;
-  font-size: 14px;
   color: var(--primary-main-color);
-  transition: 0.2s ease all;
 }
 
+.input:focus.colorSuccess ~ .label {
+  color: var(--success-color);
+}
+
+.input:focus.colorError ~ .label {
+  color: var(--error-color);
+}
+
+.input:focus.colorSecondary ~ .label {
+  color: var(--secondary-color);
+}
+
+.input:focus.colorWarning ~ .label {
+  color: var(--warning-color);
+}
+
+/* Label animation */
+.input:focus ~ .label {
+  top: var(--textfield-label-top-focused);
+  left: 1px;
+  font-size: var(--textfield-label-font-size-focused);
+  transition: var(--textfield-transition);
+}
+
+/* Label states for different variants */
 .input.filled:not([value]):not(:focus) ~ .label {
-  top: 10px;
-  font-size: 18px;
+  top: var(--textfield-label-top);
+  font-size: var(--textfield-label-font-size);
   color: var(--textField-label-color);
 }
 
 .input.filled:valid:not(:focus) ~ .label {
-  top: -16px;
+  top: var(--textfield-label-top-focused);
   left: 1px;
-  font-size: 14px;
+  font-size: var(--textfield-label-font-size-focused);
   color: var(--textField-label-color);
 }
 
 .input.filled:not([value]):not(:focus):placeholder-shown ~ .label {
-  top: -16px;
+  top: var(--textfield-label-top-focused);
   left: 1px;
-  font-size: 14px;
+  font-size: var(--textfield-label-font-size-focused);
   color: var(--textField-label-color);
 }
 
 .input.outlined:not([value]):not(:focus) ~ .label,
 .input.standard:not([value]):not(:focus) ~ .label {
-  top: 10px;
-  font-size: 18px;
+  top: var(--textfield-label-top);
+  font-size: var(--textfield-label-font-size);
   color: var(--textField-label-color);
 }
 
 .input.outlined:valid:not(:focus) ~ .label,
 .input.standard:valid:not(:focus) ~ .label {
-  top: -16px;
+  top: var(--textfield-label-top-focused);
   left: 1px;
-  font-size: 14px;
+  font-size: var(--textfield-label-font-size-focused);
   color: var(--textField-primary-text-color);
 }
+
 .input.outlined:not([value]):not(:focus):placeholder-shown ~ .label,
 .input.standard:not([value]):not(:focus):placeholder-shown ~ .label {
-  top: -16px;
+  top: var(--textfield-label-top-focused);
   left: 1px;
-  font-size: 14px;
+  font-size: var(--textfield-label-font-size-focused);
   color: var(--textField-primary-text-color);
 }
 
-
+/* Label base styles */
 .label {
   color: var(--textField-label-color);
-  font-size: 18px;
+  font-size: var(--textfield-label-font-size);
   font-weight: normal;
   position: absolute;
   pointer-events: none;
   left: var(--textField-padding-right);
-  top: 10px;
-  transition: 0.2s ease all;
+  top: var(--textfield-label-top);
+  transition: var(--textfield-transition);
 }
 
+/* Bar animation for standard variant */
 .bar {
   position: relative;
   display: block;
   width: var(--textField-width);
 }
+
 .bar:before,
 .bar:after {
   content: '';
-  height: 1px;
+  height: var(--textfield-bar-height);
   width: 0;
   bottom: 1px;
   position: absolute;
   background: var(--primary-main-color);
-  transition: 0.2s ease all;
-  -webkit-transition: 0.2s ease all;
+  transition: var(--textfield-transition);
 }
+
 .bar:before {
   left: 50%;
 }
+
 .bar:after {
   right: 50%;
 }
 
+/* Bar animation on focus for standard variant */
+.input.standard:focus ~ .bar:before,
+.input.standard:focus ~ .bar:after {
+  width: 50%;
+}
+
+.input.standard:focus.colorSuccess ~ .bar:before,
+.input.standard:focus.colorSuccess ~ .bar:after {
+  background: var(--success-color);
+}
+
+.input.standard:focus.colorError ~ .bar:before,
+.input.standard:focus.colorError ~ .bar:after {
+  background: var(--error-color);
+}
+
+.input.standard:focus.colorSecondary ~ .bar:before,
+.input.standard:focus.colorSecondary ~ .bar:after {
+  background: var(--secondary-color);
+}
+
+.input.standard:focus.colorWarning ~ .bar:before,
+.input.standard:focus.colorWarning ~ .bar:after {
+  background: var(--warning-color);
+}
+
+/* Helper text */
 .helperText {
   color: var(--textField-label-color);
   font-size: 16px;
@@ -246,4 +260,26 @@
   pointer-events: none;
   left: var(--textField-padding-right);
   top: 43px;
+}
+
+/* Accessibility improvements */
+.input:focus {
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.input.outlined:focus {
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+/* Error state styling */
+.input.error {
+  border-color: var(--error-color);
+}
+
+.input.error ~ .label {
+  color: var(--error-color);
+}
+
+.input.error ~ .helperText {
+  color: var(--error-color);
 }

@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 export type SwitchSize = 'small' | 'medium' | 'large';
 export type SwitchColor = 'primary' | 'secondary' | 'error' | 'success' | 'info' | 'warning';
 
-export interface SwitchProps {
+export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   checked?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
@@ -16,4 +16,4 @@ export interface SwitchProps {
   description?: string;
   name?: string;
   value?: string | number;
-}
+} 

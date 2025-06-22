@@ -91,14 +91,27 @@ export const Large: Story = {
   },
 };
 
-// export const Colors: Story = {
-//   render: () => (
-//     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-//       <Checkbox label="Primary color" color="primary" checked />
-//       <Checkbox label="Secondary color" color="secondary" checked />
-//       <Checkbox label="Error color" color="error" checked />
-//       <Checkbox label="Success color" color="success" checked />
-//       <Checkbox label="Info color" color="info" checked />
-//     </div>
-//   ),
-// };
+export const WithHtmlAttributes: Story = {
+  args: {
+    label: 'Checkbox with HTML attributes',
+    // HTML атрибуты input элемента
+    name: 'preferences',
+    value: 'newsletter',
+    required: true,
+    'aria-describedby': 'checkbox-help',
+    title: 'Subscribe to our newsletter',
+    form: 'user-form',
+  },
+};
+
+export const WithDataAttributes: Story = {
+  args: {
+    label: 'Checkbox with data attributes',
+    // Data атрибуты
+    'data-testid': 'newsletter-checkbox',
+    'data-category': 'preferences',
+    'data-required': 'true',
+  } as any,
+};
+
+

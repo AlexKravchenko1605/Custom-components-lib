@@ -2,9 +2,7 @@ import React from 'react';
 
 import styles from './Button.module.css';
 
-import { ButtonProps } from '../../types/button';
-
-
+import { ButtonProps } from './Button.types';
 
 const COLORS = {
   inherit: styles.colorInherit,
@@ -23,6 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   classes,
   children,
   onClick,
+  className,
   ...props
 }) => {
   const buttonClasses = [
@@ -32,12 +31,18 @@ export const Button: React.FC<ButtonProps> = ({
     styles[size],
     disabled && COLORS.disabled,
     classes,
+    className,
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <button className={buttonClasses} disabled={disabled} onClick={onClick} {...props}>
+    <button 
+      className={buttonClasses} 
+      disabled={disabled} 
+      onClick={onClick} 
+      {...props}
+    >
       {children}
     </button>
   );

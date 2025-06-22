@@ -1,16 +1,16 @@
 import classNames from 'classnames';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-import { SelectProps, SelectOption } from '../../types/select';
+import { SelectProps, SelectOption } from './Select.types';
 
 import styles from './Select.module.css';
 
 export const Select: React.FC<SelectProps> = ({
-  options,
+  options = [],
   value,
   onChange,
   label,
-  placeholder = 'Select an option',
+  placeholder,
   disabled = false,
   error = false,
   helperText,
@@ -20,16 +20,22 @@ export const Select: React.FC<SelectProps> = ({
   name,
   required = false,
   id,
+  'aria-label': ariaLabel,
+  'aria-describedby': ariaDescribedBy,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const optionsRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find((option: SelectOption) => option.value === value);
+  const availableOptions = options.filter(option => !option.disabled);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        setFocusedIndex(-1);
       }
     };
 
@@ -39,12 +45,82 @@ export const Select: React.FC<SelectProps> = ({
     };
   }, []);
 
-  const handleSelect = (optionValue: string | number) => {
+  // Reset focused index when options change
+  useEffect(() => {
+    setFocusedIndex(-1);
+  }, [options]);
+
+  const handleSelect = useCallback((optionValue: string | number | undefined) => {
     if (!disabled) {
       onChange(optionValue);
       setIsOpen(false);
+      setFocusedIndex(-1);
     }
-  };
+  }, [disabled, onChange]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (disabled) return;
+
+    switch (e.key) {
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        if (isOpen) {
+          if (focusedIndex >= 0 && focusedIndex < availableOptions.length) {
+            handleSelect(availableOptions[focusedIndex].value);
+          }
+        } else {
+          setIsOpen(true);
+          setFocusedIndex(0);
+        }
+        break;
+      
+      case 'Escape':
+        setIsOpen(false);
+        setFocusedIndex(-1);
+        break;
+      
+      case 'ArrowDown':
+        e.preventDefault();
+        if (!isOpen) {
+          setIsOpen(true);
+          setFocusedIndex(0);
+        } else {
+          setFocusedIndex(prev => 
+            prev < availableOptions.length - 1 ? prev + 1 : 0
+          );
+        }
+        break;
+      
+      case 'ArrowUp':
+        e.preventDefault();
+        if (!isOpen) {
+          setIsOpen(true);
+          setFocusedIndex(availableOptions.length - 1);
+        } else {
+          setFocusedIndex(prev => 
+            prev > 0 ? prev - 1 : availableOptions.length - 1
+          );
+        }
+        break;
+      
+      case 'Tab':
+        setIsOpen(false);
+        setFocusedIndex(-1);
+        break;
+    }
+  }, [disabled, isOpen, focusedIndex, availableOptions, handleSelect]);
+
+  // Scroll focused option into view
+  useEffect(() => {
+    if (isOpen && focusedIndex >= 0 && optionsRef.current) {
+      const optionElements = optionsRef.current.querySelectorAll('[role="option"]');
+      const focusedElement = optionElements[focusedIndex] as HTMLElement;
+      if (focusedElement) {
+        focusedElement.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  }, [isOpen, focusedIndex]);
 
   const wrapperClasses = classNames(
     styles.selectWrapper,
@@ -64,19 +140,25 @@ export const Select: React.FC<SelectProps> = ({
     [styles.open]: isOpen,
   });
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (!disabled) {
-        setIsOpen(!isOpen);
+  const handleClick = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+      if (!isOpen) {
+        setFocusedIndex(0);
+      } else {
+        setFocusedIndex(-1);
       }
     }
   };
 
-  const handleClick = () => {
-    if (!disabled) {
-      setIsOpen(!isOpen);
+  const handleOptionClick = (option: SelectOption) => {
+    if (!option.disabled) {
+      handleSelect(option.value);
     }
+  };
+
+  const handleOptionMouseEnter = (index: number) => {
+    setFocusedIndex(index);
   };
 
   return (
@@ -90,12 +172,18 @@ export const Select: React.FC<SelectProps> = ({
       <div
         className={selectClasses}
         onClick={handleClick}
-        role="button"
-        tabIndex={0}
+        role="combobox"
+        tabIndex={disabled ? -1 : 0}
         onKeyDown={handleKeyDown}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        aria-label={ariaLabel || label}
+        aria-describedby={ariaDescribedBy}
+        aria-required={required}
+        aria-invalid={error}
       >
         <span className={!selectedOption ? styles.placeholder : ''}>
-          {selectedOption ? selectedOption.label : placeholder}
+          {selectedOption ? selectedOption.label : placeholder || ''}
         </span>
         <svg
           className={arrowClasses}
@@ -104,6 +192,7 @@ export const Select: React.FC<SelectProps> = ({
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <path
             d="M7 10l5 5 5-5"
@@ -115,27 +204,48 @@ export const Select: React.FC<SelectProps> = ({
         </svg>
       </div>
       {isOpen && (
-        <div className={styles.options}>
-          {options.map((option: SelectOption) => (
-            <div
-              key={option.value}
-              className={classNames(styles.option, {
-                [styles.selected]: option.value === value,
-                [styles.disabled]: option.disabled,
-              })}
-              onClick={() => !option.disabled && handleSelect(option.value)}
-              role="option"
-              aria-selected={option.value === value}
-            >
-              {option.label}
-            </div>
-          ))}
+        <div 
+          className={styles.options} 
+          ref={optionsRef}
+          role="listbox"
+          aria-label={ariaLabel || label}
+        >
+          {options.length === 0 ? (
+            <div className={styles.noOptions}>No options available</div>
+          ) : (
+            options.map((option: SelectOption, index: number) => {
+              const isFocused = availableOptions.findIndex(opt => opt.value === option.value) === focusedIndex;
+              return (
+                <div
+                  key={option.value}
+                  className={classNames(styles.option, {
+                    [styles.selected]: option.value === value,
+                    [styles.disabled]: option.disabled,
+                    [styles.focused]: isFocused,
+                  })}
+                  onClick={() => handleOptionClick(option)}
+                  onMouseEnter={() => handleOptionMouseEnter(availableOptions.findIndex(opt => opt.value === option.value))}
+                  role="option"
+                  aria-selected={option.value === value}
+                  aria-disabled={option.disabled}
+                >
+                  {option.label}
+                </div>
+              );
+            })
+          )}
         </div>
       )}
       {helperText && (
         <div className={classNames(styles.helperText, { [styles.error]: error })}>{helperText}</div>
       )}
-      <input type="hidden" name={name} value={value} required={required} id={id} />
+      <input 
+        type="hidden" 
+        name={name} 
+        value={value || ''} 
+        required={required} 
+        id={id} 
+      />
     </div>
   );
 };

@@ -8,8 +8,8 @@ export interface SelectOption {
 
 export interface SelectProps {
   options: SelectOption[];
-  value: string | number;
-  onChange: (value: string | number) => void;
+  value?: string | number | undefined;
+  onChange: (value: string | number | undefined) => void;
   label?: string;
   placeholder?: string;
   disabled?: boolean;
@@ -21,4 +21,6 @@ export interface SelectProps {
   name?: string;
   required?: boolean;
   id?: string;
-}
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+} 

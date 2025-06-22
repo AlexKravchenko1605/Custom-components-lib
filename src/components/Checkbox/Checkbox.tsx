@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, ChangeEvent, memo, useId } from 'react';
 
-import { CheckboxProps } from '../../types/checkbox';
+import { CheckboxProps } from './Checkbox.types';
 
 import styles from './Checkbox.module.css';
 

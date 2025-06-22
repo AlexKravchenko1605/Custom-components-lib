@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef, ChangeEvent, memo, useId } from 'react';
 
-import { SwitchProps } from '../../types/switch';
+import { SwitchProps } from './Switch.types';
 
 import styles from './Switch.module.css';
 
