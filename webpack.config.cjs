@@ -8,7 +8,6 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
     index: './src/index.ts',
-    styles: './src/styles.css',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -41,18 +40,30 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
+        test: /\.module\.css$/i,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               modules: {
-                auto: true,
                 localIdentName: isProduction
                   ? '[hash:base64:8]'
                   : '[name]__[local]--[hash:base64:5]',
               },
+              importLoaders: 1,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/i,
+        exclude: /\.module\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
               importLoaders: 1,
             },
           },
