@@ -6,52 +6,60 @@ import type{ TextFieldProps } from './TextField.types';
 
 const COLORS = {
   inherit: styles.colorInherit,
+  warning: styles.colorWarning,
   primary: styles.colorPrimary,
   secondary: styles.colorSecondary,
-  warning: styles.colorWarning,
   success: styles.colorSuccess,
   error: styles.colorError,
-  disabled: styles.colorDisabled,
 };
 
 export const TextField: React.FC<TextFieldProps> = ({
-  id ,
+  label,
+  placeHolder,
+  id,
   variant = 'outlined',
   color = 'primary',
   disabled = false,
-  placeHolder,
-  label ,
+  error = false,
+  classes,
   helperText,
   onChange,
-  classes,
+  className,
   ...props
 }) => {
   const textFieldClasses = [
-    styles.input,
+    styles.textField,
     styles[variant],
     COLORS[color],
-    disabled && COLORS.disabled,
+    disabled && styles.disabled,
+    error && styles.error,
     classes,
+    className,
   ]
     .filter(Boolean)
     .join(' ');
+
   return (
-    <div className={styles.inputGroup}>
+    <div className={styles.container}>
+      {label && (
+        <label htmlFor={id} className={styles.label}>
+          {label}
+        </label>
+      )}
       <input
-        id={id || ''}
+        id={id}
         className={textFieldClasses}
-        type="text"
+        placeholder={placeHolder}
         disabled={disabled}
-        required
-        placeholder={placeHolder || ''}
         onChange={onChange}
+        aria-invalid={error}
         {...props}
       />
-      <span className={styles.bar}></span>
-      {helperText && <span className={styles.helperText}>{helperText}</span>}
-      { label && <label htmlFor={id || ''} className={styles.label}>
-        {label || ''  }
-      </label>}
+      {helperText && (
+        <p className={`${styles.helperText} ${error ? styles.error : ''}`}>
+          {helperText}
+        </p>
+      )}
     </div>
   );
 };

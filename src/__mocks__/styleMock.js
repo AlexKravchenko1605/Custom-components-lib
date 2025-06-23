@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   // Button styles
   button: 'button',
   contained: 'contained',

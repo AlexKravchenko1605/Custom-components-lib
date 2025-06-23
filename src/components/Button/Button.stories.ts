@@ -25,7 +25,6 @@ export const withHtmlAttributes: Story = {
     variant: 'contained',
     color: 'primary',
     size: 'medium',
-    // HTML атрибуты
     type: 'submit',
     name: 'submit-button',
     form: 'test-form',
@@ -35,15 +34,4 @@ export const withHtmlAttributes: Story = {
   },
 };
 
-export const withDataAttributes: Story = {
-  args: {
-    children: 'Кнопка с data атрибутами',
-    variant: 'outlined',
-    color: 'secondary',
-    size: 'large',
-    // Data атрибуты
-    'data-testid': 'custom-button',
-    'data-action': 'save',
-    'data-user-id': '123',
-  } as any, // Используем any для демонстрации data атрибутов
-};
+

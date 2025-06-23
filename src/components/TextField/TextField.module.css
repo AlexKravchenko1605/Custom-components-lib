@@ -1,6 +1,6 @@
 @import '../root.css';
 
-/* CSS Custom Properties для TextField */
+
 .inputGroup {
   --textfield-border-radius: 5px;
   --textfield-transition: 0.2s ease all;
@@ -14,7 +14,7 @@
   margin: 20px 0px;
 }
 
-/* Base input styles */
+
 .input {
   font-size: 18px;
   padding: var(--textField-padding-top) var(--textField-padding-right);
@@ -26,7 +26,7 @@
   transition: var(--textfield-transition);
 }
 
-/* Variant styles */
+
 .input.outlined {
   border-radius: var(--textfield-border-radius);
   border: 1px solid var(--textField-border-color);
@@ -38,7 +38,6 @@
   background-color: var(--textField-field-color);
 }
 
-/* Color variants - base styles */
 .colorPrimary {
   border-color: var(--primary-main-color) !important;
 }
@@ -68,7 +67,7 @@
   opacity: 0.6;
 }
 
-/* Focus states */
+
 .input:focus {
   outline: none;
   border: none;
@@ -89,7 +88,7 @@
   border-bottom: 1px solid var(--primary-main-color);
 }
 
-/* Color variants for focus states */
+
 .input.outlined:focus.colorSuccess,
 .input.standard:focus.colorSuccess,
 .input.filled:focus.colorSuccess {
@@ -114,7 +113,7 @@
   border-color: var(--warning-color);
 }
 
-/* Label color changes on focus */
+
 .input:focus ~ .label {
   color: var(--primary-main-color);
 }
@@ -135,7 +134,7 @@
   color: var(--warning-color);
 }
 
-/* Label animation */
+
 .input:focus ~ .label {
   top: var(--textfield-label-top-focused);
   left: 1px;
@@ -143,7 +142,7 @@
   transition: var(--textfield-transition);
 }
 
-/* Label states for different variants */
+
 .input.filled:not([value]):not(:focus) ~ .label {
   top: var(--textfield-label-top);
   font-size: var(--textfield-label-font-size);
@@ -187,7 +186,7 @@
   color: var(--textField-primary-text-color);
 }
 
-/* Label base styles */
+
 .label {
   color: var(--textField-label-color);
   font-size: var(--textfield-label-font-size);
@@ -199,7 +198,7 @@
   transition: var(--textfield-transition);
 }
 
-/* Bar animation for standard variant */
+
 .bar {
   position: relative;
   display: block;
@@ -225,7 +224,7 @@
   right: 50%;
 }
 
-/* Bar animation on focus for standard variant */
+
 .input.standard:focus ~ .bar:before,
 .input.standard:focus ~ .bar:after {
   width: 50%;
@@ -251,7 +250,7 @@
   background: var(--warning-color);
 }
 
-/* Helper text */
+
 .helperText {
   color: var(--textField-label-color);
   font-size: 16px;
@@ -262,7 +261,7 @@
   top: 43px;
 }
 
-/* Accessibility improvements */
+
 .input:focus {
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
 }
@@ -271,15 +270,41 @@
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
 }
 
-/* Error state styling */
-.input.error {
+.textField.error {
   border-color: var(--error-color);
 }
 
-.input.error ~ .label {
+.textField.error ~ .label {
   color: var(--error-color);
 }
 
-.input.error ~ .helperText {
+.helperText.error {
+  color: var(--error-color);
+}
+
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  color: var(--textField-label-color);
+  font-size: var(--textfield-label-font-size);
+  font-weight: normal;
+  margin-bottom: 4px;
+}
+
+
+.helperText {
+  color: var(--textField-label-color);
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+.helperText.error {
   color: var(--error-color);
 }

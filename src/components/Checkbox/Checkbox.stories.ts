@@ -19,7 +19,7 @@ const meta: Meta<typeof Checkbox> = {
       control: 'text',
       description: 'Label text for the checkbox',
     },
-    description: {
+    helperText: {
       control: 'text',
       description: 'Description text below the label',
     },
@@ -49,10 +49,10 @@ export const Default: Story = {
   },
 };
 
-export const WithDescription: Story = {
+export const WithHelperText: Story = {
   args: {
     label: 'Subscribe to newsletter',
-    description: 'Receive updates about new features and releases',
+    helperText: 'Receive updates about new features and releases',
   },
 };
 
@@ -93,8 +93,7 @@ export const Large: Story = {
 
 export const WithHtmlAttributes: Story = {
   args: {
-    label: 'Checkbox with HTML attributes',
-    // HTML атрибуты input элемента
+    label: 'Checkbox with HTML attributes',    
     name: 'preferences',
     value: 'newsletter',
     required: true,
@@ -104,14 +103,6 @@ export const WithHtmlAttributes: Story = {
   },
 };
 
-export const WithDataAttributes: Story = {
-  args: {
-    label: 'Checkbox with data attributes',
-    // Data атрибуты
-    'data-testid': 'newsletter-checkbox',
-    'data-category': 'preferences',
-    'data-required': 'true',
-  } as any,
-};
+
 
 

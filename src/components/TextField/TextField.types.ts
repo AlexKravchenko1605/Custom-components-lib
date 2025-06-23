@@ -8,6 +8,7 @@ export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
     variant?: TextFieldVariant;
     color?: TextFieldColor;
     disabled?: boolean;
+    error?: boolean;
     classes?: string;
     helperText?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;

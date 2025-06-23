@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+require('@testing-library/jest-dom');
 
 // Mock CSS modules
 const mockCssModule = {
@@ -16,4 +16,27 @@ const mockCssModule = {
   large: 'large',
 };
 
-export { mockCssModule }; 
+
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window.HTMLDialogElement.prototype, 'showModal', {
+    value: function() {
+      this.setAttribute('open', '');
+    },
+    writable: true
+  });
+
+  Object.defineProperty(window.HTMLDialogElement.prototype, 'close', {
+    value: function() {
+      this.removeAttribute('open');
+    },
+    writable: true
+  });
+
+  Object.defineProperty(window.Element.prototype, 'scrollIntoView', {
+    value: function() { 
+    },
+    writable: true
+  });
+}
+
+module.exports = { mockCssModule }; 

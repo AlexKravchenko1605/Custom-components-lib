@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
 
 import { Select } from './Select';
 
@@ -21,6 +22,10 @@ const meta: Meta<typeof Select> = {
     onChange: {
       action: 'changed',
       description: 'Callback when selection changes',
+    },
+    defaultValue: {
+      control: 'text',
+      description: 'Default value for uncontrolled mode',
     },
     label: {
       control: 'text',
@@ -87,6 +92,26 @@ export const Default: Story = {
     value: '1',
     onChange: () => {},
     label: 'Select an option',
+    placeholder: 'Choose an option',
+  },
+};
+
+export const Controlled: Story = {
+  args: {
+    options,
+    value: '2',
+    onChange: () => {},
+    label: 'Controlled Select',
+    placeholder: 'Choose an option',
+  },
+};
+
+export const Uncontrolled: Story = {
+  args: {
+    options,
+    defaultValue: '3',
+    onChange: () => {},
+    label: 'Uncontrolled Select',
     placeholder: 'Choose an option',
   },
 };

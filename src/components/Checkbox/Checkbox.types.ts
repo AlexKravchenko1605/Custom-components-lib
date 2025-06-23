@@ -8,7 +8,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void; 
   disabled?: boolean; 
   label?: string; 
-  description?: string; 
+  helperText?: string; 
   error?: boolean;
   className?: string; 
   name?: string;  

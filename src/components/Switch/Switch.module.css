@@ -1,4 +1,11 @@
 @import '../root.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .wrapper {
   display: inline-flex;
   align-items: center;
@@ -39,7 +46,6 @@
   transition: transform 0.2s ease;
 }
 
-/* Color variants - базовые цвета */
 .colorPrimary {
   background-color: var(--switch-color-primary) !important;
 }
@@ -60,7 +66,7 @@
   background-color: var(--switch-color-info) !important;
 }
 
-/* Checked state */
+
 .checked.colorPrimary {
   background-color: var(--switch-color-primary) !important;
 }
@@ -81,7 +87,7 @@
   background-color: var(--switch-color-info) !important;
 }
 
-/* Hover states */
+
 .wrapper:not(.disabled):hover .colorPrimary {
   background-color: var(--switch-color-primary-hover) !important;
 }
@@ -102,7 +108,7 @@
   background-color: var(--switch-color-info-hover) !important;
 }
 
-/* Disabled states */
+
 .disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -120,17 +126,16 @@
   box-shadow: none;
 }
 
-/* Error state */
+
 .error:not(.checked) {
   background-color: var(--switch-color-error) !important;
 }
 
-/* Focus state */
 .input:focus-visible + .track {
   box-shadow: 0 0 0 2px var(--switch-focus-box-shadow-color);
 }
 
-/* Content styles */
+
 .content {
   display: flex;
   flex-direction: column;
@@ -149,7 +154,7 @@
   color: var(--switch-description-color);
 }
 
-/* Size variants */
+
 .small .track {
   width: 40px;
   height: 24px;
@@ -171,6 +176,29 @@
 
 .small .description {
   font-size: 10px;
+}
+
+.medium .track {
+  width: 52px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.medium .thumb {
+  width: 24px;
+  height: 24px;
+}
+
+.medium .checked .thumb {
+  transform: translateX(20px);
+}
+
+.medium .label {
+  font-size: 14px;
+}
+
+.medium .description {
+  font-size: 12px;
 }
 
 .large .track {

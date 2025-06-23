@@ -1,6 +1,6 @@
 @import '../root.css';
 
-/* Reset dialog default styles */
+
 .modal {
   position: fixed;
   top: 0;
@@ -21,7 +21,7 @@
   height: 100%;
 }
 
-/* Remove default dialog backdrop */
+
 .modal::backdrop {
   background: none;
 }
@@ -116,7 +116,7 @@
   gap: 8px;
 }
 
-/* Size variants */
+
 .small .content {
   width: 400px;
 }
@@ -137,7 +137,7 @@
   border-radius: 0;
 }
 
-/* Position variants */
+
 .center {
   align-items: center;
 }
@@ -152,7 +152,7 @@
   padding-bottom: 20px;
 }
 
-/* Mobile styles */
+
 @media (max-width: 768px) {
   .fullscreenOnMobile .content {
     width: 100%;
@@ -175,7 +175,7 @@
   }
 }
 
-/* High contrast mode support */
+
 @media (prefers-contrast: high) {
   .content {
     border: 2px solid currentColor;
@@ -186,7 +186,7 @@
   }
 }
 
-/* Reduced motion support */
+
 @media (prefers-reduced-motion: reduce) {
   .content {
     animation: none;

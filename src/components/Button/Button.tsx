@@ -18,6 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   color = 'primary',
   size = 'medium',
   disabled = false,
+  error = false,
   classes,
   children,
   onClick,
@@ -30,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     COLORS[color],
     styles[size],
     disabled && COLORS.disabled,
+    error && styles.error,
     classes,
     className,
   ]

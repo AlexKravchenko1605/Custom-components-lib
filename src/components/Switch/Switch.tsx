@@ -1,102 +1,82 @@
 import classNames from 'classnames';
-import React, { forwardRef, ChangeEvent, memo, useId } from 'react';
+import React, { forwardRef, ChangeEvent, useId } from 'react';
 
 import { SwitchProps } from './Switch.types';
 
 import styles from './Switch.module.css';
 
-export const Switch = memo(
-  forwardRef<HTMLInputElement, SwitchProps>(
-    (
+export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
+  (
+    {
+      checked = false,
+      onChange,
+      disabled = false,
+      error = false,
+      className,
+      size = 'medium',
+      color = 'primary',
+      'aria-label': ariaLabel,
+      label,
+      helperText,
+      name,
+      value,
+      ...props
+    },
+    ref,
+  ) => {
+    const id = useId();
+
+    const wrapperClasses = classNames(
+      styles.wrapper,
+      styles[size],
       {
-        checked = false,
-        onChange,
-        disabled = false,
-        label,
-        description,
-        error,
-        className,
-        size = 'medium',
-        color = 'primary',
-        name,
-        value,
-        'aria-label': ariaLabel,
-        ...props
-      },
-      ref,
-    ) => {
-      const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (disabled) return;
-        onChange?.(event);
-      };
-
-      const switchId = useId();
-
-      const trackClassName = classNames(styles.track, {
-        [styles.checked]: checked,
         [styles.disabled]: disabled,
-        [styles.error]: error,
-        [styles[`color${color.charAt(0).toUpperCase() + color.slice(1)}`]]: true,
-      });
+      },
+      className,
+    );
 
-      return (
-        <label
-          className={classNames(
-            styles.wrapper,
-            {
-              [styles.disabled]: disabled,
-              [styles.small]: size === 'small',
-              [styles.large]: size === 'large',
-            },
-            className,
-          )}
-          htmlFor={switchId}
-        >
+    const trackClasses = classNames(styles.track, {
+      [styles.checked]: checked,
+      [styles.disabled]: disabled,
+      [styles.error]: error,
+      [styles[`color${color.charAt(0).toUpperCase() + color.slice(1)}`]]: true,
+    });
+
+    const thumbClasses = classNames(styles.thumb, {
+      [styles.checked]: checked,
+      [styles.disabled]: disabled,
+    });
+
+    return (
+      <div className={styles.container}>
+        <label className={wrapperClasses} htmlFor={id}>
           <input
             ref={ref}
-            id={switchId}
+            id={id}
             type="checkbox"
-            role="switch"
-            checked={checked}
-            onChange={handleChange}
-            disabled={disabled}
             className={styles.input}
+            checked={checked}
+            onChange={onChange}
+            disabled={disabled}
             name={name}
             value={value}
+            role="switch"
             aria-checked={checked}
-            aria-label={ariaLabel || label}
-            aria-describedby={description ? `${switchId}-description` : undefined}
             aria-invalid={error}
+            aria-label={ariaLabel || label}
             {...props}
           />
-          <span className={trackClassName}>
-            <span className={styles.thumb} />
-          </span>
+          <div className={trackClasses}>
+            <div className={thumbClasses} />
+          </div>
           <div className={styles.content}>
-            {label && (
-              <span
-                className={classNames(styles.label, {
-                  [styles.disabled]: disabled,
-                })}
-              >
-                {label}
-              </span>
-            )}
-            {description && (
-              <span
-                id={`${switchId}-description`}
-                className={classNames(styles.description, {
-                  [styles.disabled]: disabled,
-                })}
-              >
-                {description}
-              </span>
-            )}
+            {label && <span className={styles.label}>{label}</span>}
           </div>
         </label>
-      );
-    },
-  ),
+            {helperText && <span className={styles.description}>{helperText}</span>}
+      </div>
+    );
+  },
 );
 
 Switch.displayName = 'Switch';

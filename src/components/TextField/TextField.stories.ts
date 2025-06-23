@@ -21,6 +21,10 @@ const meta: Meta<typeof TextField> = {
       control: 'boolean',
       description: 'Whether the text field is disabled',
     },
+    error: {
+      control: 'boolean',
+      description: 'Whether the text field is in an error state',
+    },
     label: {
       control: 'text',
       description: 'Label text for the text field',
@@ -102,6 +106,17 @@ export const error: Story = {
     label: 'Error TextField',
     placeHolder: 'Enter text here',
     color: 'error',
+    error: true,
     helperText: 'This field is required',
+  },
+};
+
+export const withErrorState: Story = {
+  args: {
+    variant: 'outlined',
+    label: 'TextField with error state',
+    placeHolder: 'Enter text here',
+    error: true,
+    helperText: 'Please enter a valid email address',
   },
 };

@@ -9,7 +9,8 @@ export interface SelectOption {
 export interface SelectProps {
   options: SelectOption[];
   value?: string | number | undefined;
-  onChange: (value: string | number | undefined) => void;
+  onChange?: (value: string | number | undefined) => void;
+  defaultValue?: string | number | undefined;
   label?: string;
   placeholder?: string;
   disabled?: boolean;

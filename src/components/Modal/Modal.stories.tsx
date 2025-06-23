@@ -118,7 +118,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Modal>;
 
-// Basic usage
+
 const DefaultModalStory = (args: React.ComponentProps<typeof Modal>) => {
   const [open, setOpen] = useState(false);
   return <Modal {...args} isOpen={open} onClose={() => setOpen(false)} />;
@@ -132,7 +132,7 @@ export const Default = {
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-// With footer
+
 export const WithFooter: Story = {
   args: {
     title: 'Modal with Footer',
@@ -151,7 +151,7 @@ export const WithFooter: Story = {
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-// With accessibility
+
 export const WithAccessibility: Story = {
   args: {
     title: 'Accessible Modal',
@@ -286,7 +286,7 @@ export const Positions: Story = {
   render: () => <PositionsStoryComponent />,
 };
 
-// Without close button
+
 export const WithoutCloseButton: Story = {
   args: {
     title: 'Modal without Close Button',
@@ -296,7 +296,7 @@ export const WithoutCloseButton: Story = {
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-// Without overlay
+
 export const WithoutOverlay: Story = {
   args: {
     title: 'Modal without Overlay',
@@ -306,7 +306,7 @@ export const WithoutOverlay: Story = {
   render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-// Long content
+
 export const LongContent: Story = {
   args: {
     title: 'Modal with Long Content',

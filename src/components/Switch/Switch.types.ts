@@ -13,7 +13,7 @@ export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
   color?: SwitchColor;
   'aria-label'?: string;
   label?: string;
-  description?: string;
+  helperText?: string;
   name?: string;
   value?: string | number;
 } 

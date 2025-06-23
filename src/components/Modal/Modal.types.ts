@@ -17,8 +17,7 @@ export interface ModalProps {
   showOverlay?: boolean;
   fullscreenOnMobile?: boolean;
   footer?: React.ReactNode;
-  preventScroll?: boolean;
-  // Accessibility props
+  preventScroll?: boolean; 
   'aria-label'?: string;
   'aria-describedby'?: string;
   'aria-labelledby'?: string;

@@ -20,7 +20,7 @@ const meta: Meta<typeof Switch> = {
       control: 'text',
       description: 'Label text for the switch',
     },
-    description: {
+    helperText: {
       control: 'text',
       description: 'Description text below the label',
     },
@@ -53,7 +53,7 @@ export const Default: Story = {
 export const WithDescription: Story = {
   args: {
     label: 'Dark mode',
-    description: 'Switch between light and dark theme',
+    helperText: 'Switch between light and dark theme',
   },
 };
 

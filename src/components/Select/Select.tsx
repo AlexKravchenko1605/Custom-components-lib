@@ -9,6 +9,7 @@ export const Select: React.FC<SelectProps> = ({
   options = [],
   value,
   onChange,
+  defaultValue,
   label,
   placeholder,
   disabled = false,
@@ -23,14 +24,41 @@ export const Select: React.FC<SelectProps> = ({
   'aria-label': ariaLabel,
   'aria-describedby': ariaDescribedBy,
 }) => {
+
+  const isControlled = value !== undefined;
+  
+  
+  const [internalValue, setInternalValue] = useState<string | number | undefined>(defaultValue);
+  
+  
+  const currentValue = isControlled ? value : internalValue;
+  
+  
+  const updateValue = useCallback((newValue: string | number | undefined) => {
+    if (!disabled) {
+      if (isControlled) {
+       
+        onChange?.(newValue);
+      } else {
+        
+        setInternalValue(newValue);
+        onChange?.(newValue);
+      }
+    }
+  }, [disabled, isControlled, onChange]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = options.find((option: SelectOption) => option.value === value);
+
   const availableOptions = options.filter(option => !option.disabled);
 
+  
+  const selectedOption = options.find(option => option.value === currentValue);
+
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -39,24 +67,27 @@ export const Select: React.FC<SelectProps> = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
-  // Reset focused index when options change
+ 
   useEffect(() => {
     setFocusedIndex(-1);
   }, [options]);
 
   const handleSelect = useCallback((optionValue: string | number | undefined) => {
     if (!disabled) {
-      onChange(optionValue);
+      updateValue(optionValue);
       setIsOpen(false);
       setFocusedIndex(-1);
     }
-  }, [disabled, onChange]);
+  }, [disabled, updateValue]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (disabled) return;
@@ -111,7 +142,7 @@ export const Select: React.FC<SelectProps> = ({
     }
   }, [disabled, isOpen, focusedIndex, availableOptions, handleSelect]);
 
-  // Scroll focused option into view
+  
   useEffect(() => {
     if (isOpen && focusedIndex >= 0 && optionsRef.current) {
       const optionElements = optionsRef.current.querySelectorAll('[role="option"]');
@@ -182,26 +213,30 @@ export const Select: React.FC<SelectProps> = ({
         aria-required={required}
         aria-invalid={error}
       >
-        <span className={!selectedOption ? styles.placeholder : ''}>
-          {selectedOption ? selectedOption.label : placeholder || ''}
+        <span className={styles.selectText}>
+          <span className={!selectedOption ? styles.placeholder : ''}>
+            {selectedOption ? selectedOption.label : (placeholder || 'Select an option')}
+          </span>
         </span>
-        <svg
-          className={arrowClasses}
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path
-            d="M7 10l5 5 5-5"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <div className={styles.selectIcon}>
+          <svg
+            className={arrowClasses}
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M7 10l5 5 5-5"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
       </div>
       {isOpen && (
         <div 
@@ -219,14 +254,14 @@ export const Select: React.FC<SelectProps> = ({
                 <div
                   key={option.value}
                   className={classNames(styles.option, {
-                    [styles.selected]: option.value === value,
+                    [styles.selected]: option.value === currentValue,
                     [styles.disabled]: option.disabled,
                     [styles.focused]: isFocused,
                   })}
                   onClick={() => handleOptionClick(option)}
                   onMouseEnter={() => handleOptionMouseEnter(availableOptions.findIndex(opt => opt.value === option.value))}
                   role="option"
-                  aria-selected={option.value === value}
+                  aria-selected={option.value === currentValue}
                   aria-disabled={option.disabled}
                 >
                   {option.label}
@@ -242,7 +277,7 @@ export const Select: React.FC<SelectProps> = ({
       <input 
         type="hidden" 
         name={name} 
-        value={value || ''} 
+        value={currentValue || ''} 
         required={required} 
         id={id} 
       />
