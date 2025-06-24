@@ -5,6 +5,7 @@ export type SwitchColor = 'primary' | 'secondary' | 'error' | 'success' | 'info'
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   checked?: boolean;
+  defaultChecked?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   error?: boolean;

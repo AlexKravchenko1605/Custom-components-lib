@@ -33,7 +33,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
     
     useImperativeHandle(ref, () => dialogRef.current!, []);
 
-    // Функция для получения всех фокусируемых элементов внутри модального окна
+    
     const getFocusableElements = useCallback(() => {
       if (!contentRef.current) return [];
       
@@ -48,7 +48,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       }) as HTMLElement[];
     }, []);
 
-    // Функция для установки фокуса на первый элемент
+    
     const focusFirstElement = useCallback(() => {
       const focusableElements = getFocusableElements();
       if (focusableElements.length > 0) {
@@ -56,7 +56,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     }, [getFocusableElements]);
 
-    // Функция для установки фокуса на последний элемент
+    
     const focusLastElement = useCallback(() => {
       const focusableElements = getFocusableElements();
       if (focusableElements.length > 0) {
@@ -64,7 +64,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     }, [getFocusableElements]);
 
-    // Обработчик Tab для ловушки фокуса
+   
     const handleTabKey = useCallback((event: KeyboardEvent) => {
       if (event.key !== 'Tab') return;
       
@@ -75,13 +75,13 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       const lastElement = focusableElements[focusableElements.length - 1];
 
       if (event.shiftKey) {
-        // Shift + Tab
+   
         if (document.activeElement === firstElement) {
           event.preventDefault();
           lastElement.focus();
         }
       } else {
-        // Tab
+        
         if (document.activeElement === lastElement) {
           event.preventDefault();
           firstElement.focus();
@@ -111,12 +111,12 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       onClose();
     }, [onClose]);
 
-    // Сохраняем предыдущий активный элемент и устанавливаем фокус на модальное окно
+    
     useEffect(() => {
       if (isOpen) {
         previousActiveElement.current = document.activeElement as HTMLElement;
         
-        // Небольшая задержка для корректной работы с dialog.showModal()
+        
         const timer = setTimeout(() => {
           focusFirstElement();
         }, 0);
@@ -125,7 +125,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     }, [isOpen, focusFirstElement]);
 
-    // Восстанавливаем фокус при закрытии модального окна
+    
     useEffect(() => {
       if (!isOpen && previousActiveElement.current) {
         previousActiveElement.current.focus();
@@ -133,7 +133,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       }
     }, [isOpen]);
 
-    // Добавляем обработчик Tab для ловушки фокуса
+    
     useEffect(() => {
       if (isOpen) {
         document.addEventListener('keydown', handleTabKey);

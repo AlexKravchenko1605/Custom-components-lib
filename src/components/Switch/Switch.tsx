@@ -8,7 +8,8 @@ import styles from './Switch.module.css';
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   (
     {
-      checked = false,
+      checked,
+      defaultChecked,
       onChange,
       disabled = false,
       error = false,
@@ -55,7 +56,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             id={id}
             type="checkbox"
             className={styles.input}
-            checked={checked}
+            {...(checked !== undefined ? { checked } : {})}
+            {...(defaultChecked !== undefined ? { defaultChecked } : {})}
             onChange={onChange}
             disabled={disabled}
             name={name}
