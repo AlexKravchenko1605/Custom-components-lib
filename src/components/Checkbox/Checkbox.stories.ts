@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Checkbox } from './Checkbox';
-import React from 'react';
 
 const meta: Meta<typeof Checkbox> = {
   title: 'Components/Checkbox',
@@ -10,7 +9,11 @@ const meta: Meta<typeof Checkbox> = {
   argTypes: {
     checked: {
       control: 'boolean',
-      description: 'Whether the checkbox is checked',
+      description: 'Whether the checkbox is checked (controlled mode)',
+    },
+    defaultChecked: {
+      control: 'boolean',
+      description: 'Default checked state for uncontrolled checkbox',
     },
     disabled: {
       control: 'boolean',
@@ -60,7 +63,7 @@ export const WithHelperText: Story = {
 export const Checked: Story = {
   args: {
     label: 'Remember me',
-    checked: true,
+    defaultChecked: true,
   },
 };
 
@@ -101,6 +104,19 @@ export const WithHtmlAttributes: Story = {
     'aria-describedby': 'checkbox-help',
     title: 'Subscribe to our newsletter',
     form: 'user-form',
+  },
+};
+
+export const Uncontrolled: Story = {
+  args: {
+    label: 'Uncontrolled checkbox (clickable)',
+  },
+};
+
+export const UncontrolledWithDefault: Story = {
+  args: {
+    label: 'Uncontrolled checkbox with default checked',
+    defaultChecked: true,
   },
 };
 

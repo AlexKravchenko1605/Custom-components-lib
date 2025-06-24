@@ -5,6 +5,7 @@ export type CheckboxColor = 'primary' | 'secondary' | 'error' | 'success' | 'inf
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   checked?: boolean;
+  defaultChecked?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void; 
   disabled?: boolean; 
   label?: string; 

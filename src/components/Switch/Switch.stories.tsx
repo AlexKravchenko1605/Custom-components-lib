@@ -8,9 +8,9 @@ const meta: Meta<typeof Switch> = {
   component: Switch,
   tags: ['autodocs'],
   argTypes: {
-    checked: {
+    defaultChecked: {
       control: 'boolean',
-      description: 'Whether the switch is checked',
+      description: 'Default checked state for uncontrolled switch',
     },
     disabled: {
       control: 'boolean',
@@ -47,8 +47,6 @@ type Story = StoryObj<typeof Switch>;
 export const Default: Story = {
   args: {
     label: 'Enable notifications',
-    checked: false,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
   },
 };
 
@@ -56,16 +54,13 @@ export const WithDescription: Story = {
   args: {
     label: 'Dark mode',
     helperText: 'Switch between light and dark theme',
-    checked: false,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
   },
 };
 
 export const Checked: Story = {
   args: {
     label: 'Remember me',
-    checked: true,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
+    defaultChecked: true,
   },
 };
 
@@ -73,8 +68,6 @@ export const Disabled: Story = {
   args: {
     label: 'Disabled switch',
     disabled: true,
-    checked: false,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
   },
 };
 
@@ -82,8 +75,6 @@ export const Error: Story = {
   args: {
     label: 'Required field',
     error: true,
-    checked: false,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
   },
 };
 
@@ -91,8 +82,6 @@ export const Small: Story = {
   args: {
     label: 'Small switch',
     size: 'small',
-    checked: false,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
   },
 };
 
@@ -100,19 +89,30 @@ export const Large: Story = {
   args: {
     label: 'Large switch',
     size: 'large',
-    checked: false,
-    onChange: (e) => console.log('Switch changed:', e.target.checked),
+  },
+};
+
+export const Uncontrolled: Story = {
+  args: {
+    label: 'Uncontrolled switch (clickable)',
+  },
+};
+
+export const UncontrolledWithDefault: Story = {
+  args: {
+    label: 'Uncontrolled switch with default checked',
+    defaultChecked: true,
   },
 };
 
 export const Colors: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Switch label="Primary color" color="primary" checked />
-      <Switch label="Secondary color" color="secondary" checked />
-      <Switch label="Error color" color="error" checked />
-      <Switch label="Success color" color="success" checked />
-      <Switch label="Info color" color="info" checked />
+      <Switch label="Primary color" color="primary" defaultChecked />
+      <Switch label="Secondary color" color="secondary" defaultChecked />
+      <Switch label="Error color" color="error" defaultChecked />
+      <Switch label="Success color" color="success" defaultChecked />
+      <Switch label="Info color" color="info" defaultChecked />
     </div>
   ),
 };

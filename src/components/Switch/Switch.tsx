@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { forwardRef, ChangeEvent, useId } from 'react';
+import React, { forwardRef, ChangeEvent, useId, useState } from 'react';
 
 import { SwitchProps } from './Switch.types';
 
@@ -27,6 +27,24 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   ) => {
     const id = useId();
 
+    const isControlled = checked !== undefined;
+    
+   
+    const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
+    
+   
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!isControlled) {
+        setInternalChecked(e.target.checked);
+      }
+      if (onChange) {
+        onChange(e);
+      }
+    };
+    
+  
+    const checkedValue = isControlled ? checked : internalChecked;
+
     const wrapperClasses = classNames(
       styles.wrapper,
       styles[size],
@@ -37,14 +55,14 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     );
 
     const trackClasses = classNames(styles.track, {
-      [styles.checked]: checked,
+      [styles.checked]: checkedValue,
       [styles.disabled]: disabled,
       [styles.error]: error,
       [styles[`color${color.charAt(0).toUpperCase() + color.slice(1)}`]]: true,
     });
 
     const thumbClasses = classNames(styles.thumb, {
-      [styles.checked]: checked,
+      [styles.checked]: checkedValue,
       [styles.disabled]: disabled,
     });
 
@@ -56,14 +74,13 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             id={id}
             type="checkbox"
             className={styles.input}
-            {...(checked !== undefined ? { checked } : {})}
-            {...(defaultChecked !== undefined ? { defaultChecked } : {})}
-            onChange={onChange}
+            checked={checkedValue}
+            onChange={handleChange}
             disabled={disabled}
             name={name}
             value={value}
             role="switch"
-            aria-checked={checked}
+            aria-checked={checkedValue}
             aria-invalid={error}
             aria-label={ariaLabel || label}
             {...props}

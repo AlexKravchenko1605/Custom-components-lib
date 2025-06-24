@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { forwardRef, ChangeEvent, useId } from 'react';
+import React, { forwardRef, ChangeEvent, useId, useState } from 'react';
 
 import { CheckboxProps } from './Checkbox.types';
 
@@ -27,6 +27,25 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ) => {
     const id = useId();
 
+ 
+    const isControlled = checked !== undefined;
+    
+  
+    const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
+    
+   
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!isControlled) {
+        setInternalChecked(e.target.checked);
+      }
+      if (onChange) {
+        onChange(e);
+      }
+    };
+    
+    
+    const checkedValue = isControlled ? checked : internalChecked;
+
     const labelClasses = classNames(
       styles.label,
       styles[size],
@@ -41,38 +60,34 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const checkboxClasses = classNames(
       styles.checkbox,
       {
-        [styles.checked]: checked,
+        [styles.checked]: checkedValue,
       },
     );
 
     const inputClasses = classNames(styles.input, {
-      [styles.checked]: checked,
+      [styles.checked]: checkedValue,
       [styles.disabled]: disabled,
       [styles.error]: error,
     });
 
-    
-    const isChecked = checked !== undefined ? checked : undefined;
-
     return (
       <div className={styles.container}>
         <label className={labelClasses} htmlFor={id}>
-          <input
-            ref={ref}
-            id={id}
-            type="checkbox"
-            className={inputClasses}
-            {...(checked !== undefined ? { checked } : {})}
-            {...(defaultChecked !== undefined ? { defaultChecked } : {})}
-            onChange={onChange}
-            disabled={disabled}
-            name={name}
-            value={value}
-            aria-label={ariaLabel || label}
-            {...props}
-          />
+            <input
+              ref={ref}
+              id={id}
+              type="checkbox"
+              className={inputClasses}
+              checked={checkedValue}
+              onChange={handleChange}
+              disabled={disabled}
+              name={name}
+              value={value}
+              aria-label={ariaLabel || label}
+              {...props}
+            />
           <div className={checkboxClasses}>
-            {(checked !== undefined ? checked : undefined) && <span className={styles.checkmark}>✓</span>}
+            {checkedValue && <span className={styles.checkmark}>✓</span>}
           </div>
           {label && <span className={styles.labelText}>{label}</span>}
         </label>
@@ -83,3 +98,5 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 );
 
 Checkbox.displayName = 'Checkbox';
+
+
