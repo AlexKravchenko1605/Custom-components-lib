@@ -100,43 +100,51 @@ const meta = {
         defaultValue: { summary: true },
       },
     },
-    'aria-label': {
-      description: 'Accessibility label for the modal',
-      control: 'text',
-    },
-    'aria-describedby': {
-      description: 'ID of element that describes the modal',
-      control: 'text',
-    },
-    'aria-labelledby': {
-      description: 'ID of element that labels the modal',
-      control: 'text',
-    },
   },
 } satisfies Meta<typeof Modal>;
 
 export default meta;
 type Story = StoryObj<typeof Modal>;
 
-
-const DefaultModalStory = (args: React.ComponentProps<typeof Modal>) => {
-  const [open, setOpen] = useState(false);
-  return <Modal {...args} isOpen={open} onClose={() => setOpen(false)} />;
+// Компонент-обертка для отображения модального окна с кнопкой
+const ModalWrapper = ({ children, ...modalProps }: React.ComponentProps<typeof Modal> & { children?: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>
+        Open Modal
+      </Button>
+      <Modal
+        {...modalProps}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      >
+        {children}
+      </Modal>
+    </>
+  );
 };
 
-export const Default = {
+export const Default: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <p>This is the modal content using native dialog element.</p>
+    </ModalWrapper>
+  ),
   args: {
     title: 'Modal Title',
-    children: <p>This is the modal content using native dialog element.</p>,
   },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-
 export const WithFooter: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <p>This modal has a footer with action buttons.</p>
+    </ModalWrapper>
+  ),
   args: {
     title: 'Modal with Footer',
-    children: <p>This modal has a footer with action buttons.</p>,
     footer: (
       <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
         <Button color="secondary" onClick={() => {}}>
@@ -148,14 +156,11 @@ export const WithFooter: Story = {
       </div>
     ),
   },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-
 export const WithAccessibility: Story = {
-  args: {
-    title: 'Accessible Modal',
-    children: (
+  render: (args) => (
+    <ModalWrapper {...args}>
       <div>
         <p>This modal has enhanced accessibility features:</p>
         <ul>
@@ -163,11 +168,13 @@ export const WithAccessibility: Story = {
           <li>Proper ARIA attributes</li>
           <li>Keyboard navigation support</li>
           <li>Screen reader friendly</li>
+          <li>Focus trap implementation</li>
         </ul>
       </div>
-    ),
-    'aria-label': 'Accessibility demonstration modal',
-    'aria-describedby': 'modal-description',
+    </ModalWrapper>
+  ),
+  args: {
+    title: 'Accessible Modal',
     footer: (
       <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
         <Button color="secondary" onClick={() => {}}>
@@ -179,138 +186,96 @@ export const WithAccessibility: Story = {
       </div>
     ),
   },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
-const SizesStoryComponent = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [size, setSize] = useState<'small' | 'medium' | 'large' | 'fullscreen'>('medium');
-
-  return (
-    <>
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-        <Button
-          onClick={() => {
-            setSize('small');
-            setIsOpen(true);
-          }}
-        >
-          Small
-        </Button>
-        <Button
-          onClick={() => {
-            setSize('medium');
-            setIsOpen(true);
-          }}
-        >
-          Medium
-        </Button>
-        <Button
-          onClick={() => {
-            setSize('large');
-            setIsOpen(true);
-          }}
-        >
-          Large
-        </Button>
-        <Button
-          onClick={() => {
-            setSize('fullscreen');
-            setIsOpen(true);
-          }}
-        >
-          Fullscreen
-        </Button>
-      </div>
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title={`${size.charAt(0).toUpperCase() + size.slice(1)} Modal`}
-        size={size}
-      >
-        <p>This is a {size} modal using native dialog element.</p>
-      </Modal>
-    </>
-  );
+export const Small: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <p>This is a small modal.</p>
+    </ModalWrapper>
+  ),
+  args: {
+    title: 'Small Modal',
+    size: 'small',
+  },
 };
 
-export const Sizes: Story = {
-  render: () => <SizesStoryComponent />,
+export const Large: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <p>This is a large modal with more content.</p>
+      <p>It can accommodate more information and larger forms.</p>
+    </ModalWrapper>
+  ),
+  args: {
+    title: 'Large Modal',
+    size: 'large',
+  },
 };
-
-const PositionsStoryComponent = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState<'center' | 'top' | 'bottom'>('center');
-
-  return (
-    <>
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-        <Button
-          onClick={() => {
-            setPosition('center');
-            setIsOpen(true);
-          }}
-        >
-          Center
-        </Button>
-        <Button
-          onClick={() => {
-            setPosition('top');
-            setIsOpen(true);
-          }}
-        >
-          Top
-        </Button>
-        <Button
-          onClick={() => {
-            setPosition('bottom');
-            setIsOpen(true);
-          }}
-        >
-          Bottom
-        </Button>
-      </div>
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title={`${position.charAt(0).toUpperCase() + position.slice(1)} Position Modal`}
-        position={position}
-      >
-        <p>This modal is positioned at the {position}.</p>
-      </Modal>
-    </>
-  );
-};
-
-export const Positions: Story = {
-  render: () => <PositionsStoryComponent />,
-};
-
 
 export const WithoutCloseButton: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <p>This modal doesn't have a close button in the header.</p>
+      <p>You can only close it by clicking the overlay or pressing Escape.</p>
+    </ModalWrapper>
+  ),
   args: {
     title: 'Modal without Close Button',
-    children: <p>This modal doesn't have a close button. Use Escape key or click outside to close.</p>,
     showCloseButton: false,
   },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
-
 
 export const WithoutOverlay: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <p>This modal doesn't have an overlay.</p>
+      <p>You can see the background content behind it.</p>
+    </ModalWrapper>
+  ),
   args: {
     title: 'Modal without Overlay',
-    children: <p>This modal doesn't have an overlay background.</p>,
     showOverlay: false,
   },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
 };
 
+export const WithForm: Story = {
+  render: (args) => (
+    <ModalWrapper {...args}>
+      <form style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input id="name" type="text" style={{ width: '100%', padding: '8px' }} />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input id="email" type="email" style={{ width: '100%', padding: '8px' }} />
+        </div>
+        <div>
+          <label htmlFor="message">Message:</label>
+          <textarea id="message" rows={4} style={{ width: '100%', padding: '8px' }} />
+        </div>
+      </form>
+    </ModalWrapper>
+  ),
+  args: {
+    title: 'Modal with Form',
+    footer: (
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+        <Button color="secondary" onClick={() => {}}>
+          Cancel
+        </Button>
+        <Button color="primary" onClick={() => {}}>
+          Submit
+        </Button>
+      </div>
+    ),
+  },
+};
 
 export const LongContent: Story = {
-  args: {
-    title: 'Modal with Long Content',
-    children: (
+  render: (args) => (
+    <ModalWrapper {...args}>
       <div>
         <p>This modal contains a lot of content to demonstrate scrolling behavior.</p>
         {Array.from({ length: 20 }, (_, i) => (
@@ -319,7 +284,9 @@ export const LongContent: Story = {
           </p>
         ))}
       </div>
-    ),
+    </ModalWrapper>
+  ),
+  args: {
+    title: 'Modal with Long Content',
   },
-  render: (args: React.ComponentProps<typeof Modal>) => <DefaultModalStory {...args} />,
-};
+}; 

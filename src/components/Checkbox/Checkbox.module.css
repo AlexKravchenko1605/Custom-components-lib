@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: fit-content;
 }
 
 .label {
@@ -116,7 +117,7 @@
   border-color: #2196f3;
 }
 
-.primary.checked .checkbox {
+.primary .checkbox.checked {
   background-color: var(--checkbox-checked-color);
   border-color: var(--checkbox-checked-color);
 }
@@ -125,7 +126,7 @@
   border-color: var(--checkbox-secondary-color);
 }
 
-.secondary.checked .checkbox {  
+.secondary .checkbox.checked {  
   background-color: var(--checkbox-secondary-color);
   border-color: var(--checkbox-secondary-color);
 }
@@ -134,7 +135,7 @@
   border-color: var(--checkbox-error-color);
 }
 
-.error.checked .checkbox {
+.error .checkbox.checked {
   background-color: var(--checkbox-error-color);
   border-color: var(--checkbox-error-color);
 }
@@ -143,7 +144,7 @@
   border-color: var(--checkbox-success-color);
 }
 
-.success.checked .checkbox {
+.success .checkbox.checked {
   background-color: var(--checkbox-success-color);
   border-color: var(--checkbox-success-color);
 }
@@ -152,29 +153,66 @@
   border-color: var(--checkbox-info-color);
 }
 
-.info.checked .checkbox {
+.info .checkbox.checked {
   background-color: var(--checkbox-info-color);
   border-color: var(--checkbox-info-color);
 }
 
 
-.label:not(.disabled):hover .primary .checkbox {
+.label:not(.disabled):hover .checkbox {
+  border-color: var(--primary-main-color);
+  transform: scale(1.05);
+}
+
+.label:not(.disabled):hover.checked .checkbox {
+  background-color: var(--primary-main-color);
+  border-color: var(--primary-main-color);
+  transform: scale(1.05);
+}
+
+
+.label:not(.disabled):hover.primary .checkbox {
   border-color: var(--primary-main-color);
 }
 
-.label:not(.disabled):hover .secondary .checkbox {
+.label:not(.disabled):hover.primary.checked .checkbox {
+  background-color: var(--primary-main-color);
+  border-color: var(--primary-main-color);
+}
+
+.label:not(.disabled):hover.secondary .checkbox {
   border-color: var(--checkbox-secondary-color-hover);
 }
 
-.label:not(.disabled):hover .error .checkbox {
+.label:not(.disabled):hover.secondary.checked .checkbox {
+  background-color: var(--checkbox-secondary-color-hover);
+  border-color: var(--checkbox-secondary-color-hover);
+}
+
+.label:not(.disabled):hover.error .checkbox {
   border-color: var(--checkbox-error-color-hover);
 }
 
-.label:not(.disabled):hover .success .checkbox {
+.label:not(.disabled):hover.error.checked .checkbox {
+  background-color: var(--checkbox-error-color-hover);
+  border-color: var(--checkbox-error-color-hover);
+}
+
+.label:not(.disabled):hover.success .checkbox {
   border-color: var(--checkbox-success-color-hover);
 }
 
-.label:not(.disabled):hover .info .checkbox {
+.label:not(.disabled):hover.success.checked .checkbox {
+  background-color: var(--checkbox-success-color-hover);
+  border-color: var(--checkbox-success-color-hover);
+}
+
+.label:not(.disabled):hover.info .checkbox {
+  border-color: var(--checkbox-info-color-hover);
+}
+
+.label:not(.disabled):hover.info.checked .checkbox {
+  background-color: var(--checkbox-info-color-hover);
   border-color: var(--checkbox-info-color-hover);
 }
 

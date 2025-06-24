@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: fit-content;
 }
 
 .wrapper {
@@ -90,22 +91,27 @@
 
 .wrapper:not(.disabled):hover .colorPrimary {
   background-color: var(--switch-color-primary-hover) !important;
+  transform: scale(1.05);
 }
 
 .wrapper:not(.disabled):hover .colorSecondary {
   background-color: var(--switch-color-secondary-hover) !important;
+  transform: scale(1.05);
 }
 
 .wrapper:not(.disabled):hover .colorError {
   background-color: var(--switch-color-error-hover) !important;
+  transform: scale(1.05);
 }
 
 .wrapper:not(.disabled):hover .colorSuccess {
   background-color: var(--switch-color-success-hover) !important;
+  transform: scale(1.05);
 }
 
 .wrapper:not(.disabled):hover .colorInfo {
   background-color: var(--switch-color-info-hover) !important;
+  transform: scale(1.05);
 }
 
 

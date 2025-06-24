@@ -52,11 +52,18 @@
   --textField-padding-top: 10px;
   --textField-padding-bottom: 10px;
   --textField-padding-left: 14px;
-  --textField-padding-right: 14px;
+  --textField-padding-right: 1px;
   --textField-primary-text-color: #000;
   --textField-border-color: #aaaaaa;
   --textField-label-color: #999;
   --textField-field-color: #eee9e9;
+  --textfield-border-radius: 5px;
+  --textfield-transition: 0.2s ease all;
+  --textfield-label-font-size: 14px;
+  --textfield-label-font-size-focused: 14px;
+  --textfield-label-top: 21px;
+  --textfield-label-top-focused: -16px;
+  --textfield-bar-height: 2px;
 
   --checkbox-border-color: #ccc;
   --checkbox-checked-color: #2196f3;
@@ -66,11 +73,11 @@
   --checkbox-description-color: #666;
   --checkbox-secondary-color: #9c27b0;
   --checkbox-success-color:#4caf50;  
-  --checkbox-info-color:#03a9f4;
+  --checkbox-info-color:#f09f0a;
   --checkbox-secondary-color-hover:#7b1fa2;
   --checkbox-error-color-hover:#d32f2f;
-  --checkbox-succes-color-hover:#388e3c;
-  --checkbox-info-color-hover:#0288d1;
+  --checkbox-success-color-hover:#388e3c;
+  --checkbox-info-color-hover:#f09f0a;
 
 
   --overlay-backGround-color: rgba(0, 0, 0, 0.5);
@@ -96,6 +103,11 @@
   --switch-color-secondary: #9c27b0;
   --switch-color-error: #f44336;
   --switch-color-success: #4caf50;
-  --switch-color-info: #03a9f4;
-  --switch-color-primary-hover: #1976d2;
+  --switch-color-info: #f09f0a;
+  --switch-color-primary-hover: #1976d2;  
+  --switch-color-secondary-hover: #9c27b0;
+  --switch-color-error-hover: #f44336;
+  --switch-color-success-hover: #4caf50;
+  --switch-color-info-hover: #f09f0a;
+  --switch-track-background-color-disabled: #e0e0e0;
 }

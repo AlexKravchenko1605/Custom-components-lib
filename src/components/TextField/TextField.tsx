@@ -39,22 +39,30 @@ export const TextField: React.FC<TextFieldProps> = ({
     .filter(Boolean)
     .join(' ');
 
+  const hasPlaceholder = Boolean(placeHolder && placeHolder.trim() !== '');
+  const inputClassNames = [
+    textFieldClasses,
+    hasPlaceholder ? styles.hasPlaceholder : '',
+  ].filter(Boolean).join(' ');
+
   return (
     <div className={styles.container}>
-      {label && (
-        <label htmlFor={id} className={styles.label}>
-          {label}
-        </label>
-      )}
-      <input
-        id={id}
-        className={textFieldClasses}
-        placeholder={placeHolder}
-        disabled={disabled}
-        onChange={onChange}
-        aria-invalid={error}
-        {...props}
-      />
+      <div className={styles.inputWrapper}>
+        <input
+          id={id}
+          className={inputClassNames}
+          placeholder={placeHolder || ' '}
+          disabled={disabled}
+          onChange={onChange}
+          aria-invalid={error}
+          {...props}
+        />
+        {label && (
+          <label htmlFor={id} className={styles.label}>
+            {label}
+          </label>
+        )}
+      </div>
       {helperText && (
         <p className={`${styles.helperText} ${error ? styles.error : ''}`}>
           {helperText}

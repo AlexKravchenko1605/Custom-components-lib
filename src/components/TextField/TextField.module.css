@@ -1,41 +1,52 @@
 @import '../root.css';
 
-
-.inputGroup {
-  --textfield-border-radius: 5px;
-  --textfield-transition: 0.2s ease all;
-  --textfield-label-font-size: 18px;
-  --textfield-label-font-size-focused: 14px;
-  --textfield-label-top: 10px;
-  --textfield-label-top-focused: -16px;
-  --textfield-bar-height: 1px;
-  
+.container {
   position: relative;
-  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
 }
 
-
-.input {
-  font-size: 18px;
-  padding: var(--textField-padding-top) var(--textField-padding-right);
-  display: block;
-  width: var(--textField-width);
-  border: none;
-  color: var(--textField-primary-text-color);
-  border-bottom: 1px solid var(--textField-border-color);
-  transition: var(--textfield-transition);
+.inputWrapper {
+  position: relative;
+  width: 100%;
 }
 
-
-.input.outlined {
-  border-radius: var(--textfield-border-radius);
+.textField {
+  width: 100%;
+  padding: 20px 12px 8px 12px;
+  font-size: 16px;
   border: 1px solid var(--textField-border-color);
+  border-radius: 4px;
+  background: transparent;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
-.input.filled {
-  border-top-left-radius: var(--textfield-border-radius);
-  border-top-right-radius: var(--textfield-border-radius);
-  background-color: var(--textField-field-color);
+.textField:focus {
+  outline: none;
+  border-color: var(--primary-main-color);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.textField:hover:not(:focus):not(.disabled) {
+  border-color: var(--primary-main-color);
+}
+
+.textField.disabled {
+  background-color: var(--disabled-backGround-color);
+  color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+.textField.error {
+  border-color: var(--error-color);
+}
+
+.textField.error:focus {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
 }
 
 .colorPrimary {
@@ -62,249 +73,95 @@
   border-color: inherit !important;
 }
 
-.colorDisabled {
-  border-color: var(--disabled-color) !important;
-  opacity: 0.6;
-}
-
-
-.input:focus {
-  outline: none;
-  border: none;
-}
-
-.input.outlined:focus {
-  outline: none;
-  border: 1px solid var(--primary-main-color);
-}
-
-.input.standard:focus {
-  outline: none;
-  border-bottom: 1px solid var(--primary-main-color);
-}
-
-.input.filled:focus {
-  outline: none;
-  border-bottom: 1px solid var(--primary-main-color);
-}
-
-
-.input.outlined:focus.colorSuccess,
-.input.standard:focus.colorSuccess,
-.input.filled:focus.colorSuccess {
-  border-color: var(--success-color);
-}
-
-.input.outlined:focus.colorError,
-.input.standard:focus.colorError,
-.input.filled:focus.colorError {
-  border-color: var(--error-color);
-}
-
-.input.outlined:focus.colorSecondary,
-.input.standard:focus.colorSecondary,
-.input.filled:focus.colorSecondary {
-  border-color: var(--secondary-color);
-}
-
-.input.outlined:focus.colorWarning,
-.input.standard:focus.colorWarning,
-.input.filled:focus.colorWarning {
-  border-color: var(--warning-color);
-}
-
-
-.input:focus ~ .label {
-  color: var(--primary-main-color);
-}
-
-.input:focus.colorSuccess ~ .label {
-  color: var(--success-color);
-}
-
-.input:focus.colorError ~ .label {
-  color: var(--error-color);
-}
-
-.input:focus.colorSecondary ~ .label {
-  color: var(--secondary-color);
-}
-
-.input:focus.colorWarning ~ .label {
-  color: var(--warning-color);
-}
-
-
-.input:focus ~ .label {
-  top: var(--textfield-label-top-focused);
-  left: 1px;
-  font-size: var(--textfield-label-font-size-focused);
-  transition: var(--textfield-transition);
-}
-
-
-.input.filled:not([value]):not(:focus) ~ .label {
-  top: var(--textfield-label-top);
-  font-size: var(--textfield-label-font-size);
-  color: var(--textField-label-color);
-}
-
-.input.filled:valid:not(:focus) ~ .label {
-  top: var(--textfield-label-top-focused);
-  left: 1px;
-  font-size: var(--textfield-label-font-size-focused);
-  color: var(--textField-label-color);
-}
-
-.input.filled:not([value]):not(:focus):placeholder-shown ~ .label {
-  top: var(--textfield-label-top-focused);
-  left: 1px;
-  font-size: var(--textfield-label-font-size-focused);
-  color: var(--textField-label-color);
-}
-
-.input.outlined:not([value]):not(:focus) ~ .label,
-.input.standard:not([value]):not(:focus) ~ .label {
-  top: var(--textfield-label-top);
-  font-size: var(--textfield-label-font-size);
-  color: var(--textField-label-color);
-}
-
-.input.outlined:valid:not(:focus) ~ .label,
-.input.standard:valid:not(:focus) ~ .label {
-  top: var(--textfield-label-top-focused);
-  left: 1px;
-  font-size: var(--textfield-label-font-size-focused);
-  color: var(--textField-primary-text-color);
-}
-
-.input.outlined:not([value]):not(:focus):placeholder-shown ~ .label,
-.input.standard:not([value]):not(:focus):placeholder-shown ~ .label {
-  top: var(--textfield-label-top-focused);
-  left: 1px;
-  font-size: var(--textfield-label-font-size-focused);
-  color: var(--textField-primary-text-color);
-}
-
-
 .label {
-  color: var(--textField-label-color);
-  font-size: var(--textfield-label-font-size);
-  font-weight: normal;
   position: absolute;
-  pointer-events: none;
-  left: var(--textField-padding-right);
-  top: var(--textfield-label-top);
-  transition: var(--textfield-transition);
-}
-
-
-.bar {
-  position: relative;
-  display: block;
-  width: var(--textField-width);
-}
-
-.bar:before,
-.bar:after {
-  content: '';
-  height: var(--textfield-bar-height);
-  width: 0;
-  bottom: 1px;
-  position: absolute;
-  background: var(--primary-main-color);
-  transition: var(--textfield-transition);
-}
-
-.bar:before {
-  left: 50%;
-}
-
-.bar:after {
-  right: 50%;
-}
-
-
-.input.standard:focus ~ .bar:before,
-.input.standard:focus ~ .bar:after {
-  width: 50%;
-}
-
-.input.standard:focus.colorSuccess ~ .bar:before,
-.input.standard:focus.colorSuccess ~ .bar:after {
-  background: var(--success-color);
-}
-
-.input.standard:focus.colorError ~ .bar:before,
-.input.standard:focus.colorError ~ .bar:after {
-  background: var(--error-color);
-}
-
-.input.standard:focus.colorSecondary ~ .bar:before,
-.input.standard:focus.colorSecondary ~ .bar:after {
-  background: var(--secondary-color);
-}
-
-.input.standard:focus.colorWarning ~ .bar:before,
-.input.standard:focus.colorWarning ~ .bar:after {
-  background: var(--warning-color);
-}
-
-
-.helperText {
+  left: 12px;
+  top: 18px;
   color: var(--textField-label-color);
   font-size: 16px;
-  font-weight: normal;
-  position: absolute;
   pointer-events: none;
-  left: var(--textField-padding-right);
-  top: 43px;
+  background: transparent;
+  transition: 0.2s cubic-bezier(.25,.8,.25,1);
 }
 
-
-.input:focus {
-  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+.textField:focus + .label,
+.textField:not(:placeholder-shown) + .label {
+  top: 4px;
+  left: 8px;
+  font-size: 12px;
+  color: var(--primary-main-color);
+  background: var(--primary-backGround-color);
+  padding: 0 4px;
 }
 
-.input.outlined:focus {
-  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+.textField.hasPlaceholder + .label {
+  top: 4px;
+  left: 8px;
+  font-size: 12px;
+  color: var(--primary-main-color);
+  background: var(--primary-backGround-color);
+  padding: 0 4px;
 }
-
-.textField.error {
-  border-color: var(--error-color);
-}
-
-.textField.error ~ .label {
-  color: var(--error-color);
-}
-
-.helperText.error {
-  color: var(--error-color);
-}
-
-
-.container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.label {
-  color: var(--textField-label-color);
-  font-size: var(--textfield-label-font-size);
-  font-weight: normal;
-  margin-bottom: 4px;
-}
-
 
 .helperText {
-  color: var(--textField-label-color);
   font-size: 12px;
-  font-weight: normal;
+  color: var(--textField-label-color);
   margin-top: 4px;
+  line-height: 1.4;
 }
 
 .helperText.error {
   color: var(--error-color);
+}
+
+.filled {
+  background-color: var(--textField-field-color);
+  border: none;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 2px solid var(--textField-border-color);
+  box-shadow: none;
+}
+
+.filled:focus {
+  border-bottom: 2px solid var(--primary-main-color);
+  background-color: var(--textField-field-color);
+}
+
+.filled.hasPlaceholder  + .label {
+  background: inherit!important;
+}
+.textField.filled:focus:not(:placeholder-shown) + .label {
+  background: inherit!important;
+}
+
+.standard {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--textField-border-color);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.standard:focus {
+  border-bottom: 2px solid var(--primary-main-color);
+  background: transparent;
+}
+
+.colorSuccess + .label {
+  color: var(--success-color) !important;
+}
+
+.colorError + .label {
+  color: var(--error-color) !important;
+}
+
+.colorWarning + .label {
+  color: var(--warning-color) !important;
+}
+
+.colorInherit + .label {
+  color: inherit !important;
+} 
+.colorSecondary + .label {
+  color: var(--secondary-color) !important;
 }

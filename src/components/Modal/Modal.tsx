@@ -28,8 +28,66 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
     ref,
   ) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const previousActiveElement = useRef<HTMLElement | null>(null);
     
     useImperativeHandle(ref, () => dialogRef.current!, []);
+
+    // Функция для получения всех фокусируемых элементов внутри модального окна
+    const getFocusableElements = useCallback(() => {
+      if (!contentRef.current) return [];
+      
+      return Array.from(
+        contentRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]), [contenteditable="true"]'
+        )
+      ).filter((el) => {
+        const element = el as HTMLElement;
+        const formElement = element as HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        return !('disabled' in formElement && formElement.disabled) && element.offsetParent !== null;
+      }) as HTMLElement[];
+    }, []);
+
+    // Функция для установки фокуса на первый элемент
+    const focusFirstElement = useCallback(() => {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }, [getFocusableElements]);
+
+    // Функция для установки фокуса на последний элемент
+    const focusLastElement = useCallback(() => {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[focusableElements.length - 1].focus();
+      }
+    }, [getFocusableElements]);
+
+    // Обработчик Tab для ловушки фокуса
+    const handleTabKey = useCallback((event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+      
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }, [getFocusableElements]);
 
     const handleEscape = useCallback(
       (event: KeyboardEvent) => {
@@ -53,28 +111,59 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       onClose();
     }, [onClose]);
 
-    
+    // Сохраняем предыдущий активный элемент и устанавливаем фокус на модальное окно
+    useEffect(() => {
+      if (isOpen) {
+        previousActiveElement.current = document.activeElement as HTMLElement;
+        
+        // Небольшая задержка для корректной работы с dialog.showModal()
+        const timer = setTimeout(() => {
+          focusFirstElement();
+        }, 0);
+        
+        return () => clearTimeout(timer);
+      }
+    }, [isOpen, focusFirstElement]);
+
+    // Восстанавливаем фокус при закрытии модального окна
+    useEffect(() => {
+      if (!isOpen && previousActiveElement.current) {
+        previousActiveElement.current.focus();
+        previousActiveElement.current = null;
+      }
+    }, [isOpen]);
+
+    // Добавляем обработчик Tab для ловушки фокуса
+    useEffect(() => {
+      if (isOpen) {
+        document.addEventListener('keydown', handleTabKey);
+        return () => {
+          document.removeEventListener('keydown', handleTabKey);
+        };
+      }
+    }, [isOpen, handleTabKey]);
+
     useEffect(() => {
       const dialog = dialogRef.current;
       if (!dialog) return;
 
-      
-      dialog.showModal();
-      
-      
-      if (preventScroll) {
-        document.body.style.overflow = 'hidden';
+      if (isOpen) {
+        dialog.showModal();
+        
+        if (preventScroll) {
+          document.body.style.overflow = 'hidden';
+        }
+      } else {
+        dialog.close();
       }
 
-      
       return () => {
         if (preventScroll) {
           document.body.style.overflow = '';
         }
       };
-    }, [preventScroll]);
+    }, [isOpen, preventScroll]);
 
-     
     useEffect(() => {
       if (closeOnEscape) {
         document.addEventListener('keydown', handleEscape);
@@ -84,7 +173,6 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       };
     }, [closeOnEscape, handleEscape]);
 
-   
     useEffect(() => {
       const dialog = dialogRef.current;
       if (!dialog) return;
@@ -99,7 +187,6 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
       };
     }, [onClose]);
 
-   
     useEffect(() => {
       return () => {
         if (preventScroll) {
@@ -132,6 +219,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
           />
         )}
         <div
+          ref={contentRef}
           className={classNames(styles.content, contentClassName)}
           onClick={(e) => e.stopPropagation()}
         >
